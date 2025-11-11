@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProbSolv Tech Agency | Web Development, Custom Apps & AI Automation</title>
+  <meta name="description" content="ProbSolv Tech Agency crafts high-performance websites, custom 'vibe coding' apps, and intelligent AI automations to scale your business. Let's build your digital future." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://www.probsolv.online" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ProbSolv Tech Agency | Web Development, Custom Apps & AI Automation" />
+  <meta property="og:description" content="ProbSolv Tech Agency crafts high-performance websites, custom 'vibe coding' apps, and intelligent AI automations to scale your business. Let's build your digital future." />
+  <meta property="og:url" content="https://www.probsolv.online/" />
+  <meta property="og:site_name" content="ProbSolv Tech Agency" />
+  <meta property="og:image" content="https://www.probsolv.online/og-image.png" />
+  <meta property="og:image:alt" content="ProbSolv Tech Agency - Web Development and AI Solutions" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@probsolv" />
+  <meta name="twitter:title" content="ProbSolv Tech Agency | Web Development, Custom Apps & AI Automation" />
+  <meta name="twitter:description" content="We craft high-performance websites, custom 'vibe coding' apps, and intelligent AI automations to scale your business." />
+  <meta name="twitter:image" content="https://www.probsolv.online/og-image.png" />
+
+  <!-- Favicons / icons -->
+  <link rel="icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="favicon.ico" />
+
+  <!-- Google Site Verification -->
+  <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+
+  <!-- Structured data (JSON-LD): Organization + Person + WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.probsolv.online/#organization",
+        "name": "ProbSolv Tech Agency",
+        "url": "https://www.probsolv.online/",
+        "logo": "https://www.probsolv.online/logo.png",
+        "sameAs": [
+          "https://www.facebook.com/your-agency-page",
+          "https://www.instagram.com/your-agency-page",
+          "https://www.linkedin.com/company/your-agency-page"
+        ],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "contact@probsolv.online",
+            "availableLanguage": ["English"]
+          }
+        ],
+        "founder": {
+          "@type": "Person",
+          "name": "Mehdi Hassan"
+        },
+        "description": "ProbSolv Tech Agency crafts high-performance websites, custom 'vibe coding' apps, and intelligent AI automations to scale your business."
+      },
+      {
+        "@type": "Agency",
+        "@id": "https://www.probsolv.online/#Agency",
+        "name": "Mehdi Hassan",
+        "jobTitle": "Founder & Lead Developer",
+        "worksFor": { "@id": "https://www.probsolv.online/#organization" },
+        "url": "https://www.probsolv.online/about",
+        "sameAs": [
+          "https://www.facebook.com/mehdi.hassan.607411",
+          "https://www.instagram.com/_mehdihassan",
+          "https://www.linkedin.com/in/mehdi-hassan-72924a377"
+        ],
+        "email": "mehdi@probsolv.online"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.probsolv.online/#website",
+        "url": "https://www.probsolv.online/",
+        "name": "ProbSolv Tech Agency",
+        "description": "ProbSolv Tech Agency crafts high-performance websites, custom 'vibe coding' apps, and intelligent AI automations to scale your business.",
+        "publisher": { "@id": "https://www.probsolv.online/#organization" }
+      }
+    ]
+  }
+  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'Inter', 'sans-serif'],
+            heading: ['Montserrat', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            'primary': '#7B3EF0',
+            'accent': '#6AEBFF',
+            'bg_dark': '#0D0C12',
+            'bg_light': '#F7F7F8',
+            'surface_dark': '#131219',
+            'surface_light': '#FFFFFF',
+            'border_dark': '#24232B',
+            'border_light': '#EAEAEB',
+            'text_dark': '#F0F0F1',
+            'text_light': '#0D0C12',
+            'subtext_dark': '#A09FA6',
+            'subtext_light': '#5A5963',
+          },
+          backgroundImage: {
+            'gradient-animated-light': 'linear-gradient(-45deg, #f3e5f5, #e1f5fe, #e8eaf6, #e0f2f1)',
+            'gradient-animated-dark': 'linear-gradient(-45deg, #0D0C12, #161221, #0D0C12, #111e21)',
+            'gradient-footer-light': 'linear-gradient(-45deg, #FFFFFF, #F5F0FF, #FFFFFF, #F0FBFC)',
+            'gradient-footer-dark': 'linear-gradient(-45deg, #131219, #1A1626, #131219, #162426)',
+          },
+          backgroundSize: {
+            '400%': '400% 400%',
+          },
+          animation: {
+            'float-1': 'float 12s ease-in-out infinite',
+            'float-2': 'float 15s ease-in-out infinite reverse',
+            'float-3': 'float 18s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.4s ease-out forwards',
+            'fade-out': 'fadeOut 0.25s ease-in forwards',
+            'fade-in-up': 'fadeInUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+            'fade-out-down': 'fadeOutDown 0.4s ease-in forwards',
+            'pop-in': 'popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards',
+            'move-blob': 'moveBlob 20s ease-in-out infinite',
+            'gradient-bg': 'animated-gradient 15s ease infinite',
+            'footer-gradient-bg': 'animated-gradient 25s ease infinite',
+            'text-alive': 'textAlive 8s ease-in-out infinite alternate',
+            'logo-dot-glow': 'logo-dot-glow 3s ease-in-out infinite',
+            'logo-text-glow': 'logo-text-glow 2.5s ease-in-out infinite alternate',
+            'pulse-subtle': 'pulse-subtle 4s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-25px) rotate(10deg)' },
+            },
+            fadeIn: {
+              'from': { opacity: '0' },
+              'to': { opacity: '1' },
+            },
+            fadeOut: {
+              'from': { opacity: '1' },
+              'to': { opacity: '0' },
+            },
+            fadeInUp: {
+              'from': { opacity: '0', transform: 'translateY(20px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            fadeOutDown: {
+              'from': { opacity: '1', transform: 'translateY(0)' },
+              'to': { opacity: '0', transform: 'translateY(20px)' },
+            },
+            popIn: {
+                '0%': { transform: 'scale(0.8)' },
+                '80%': { transform: 'scale(1.1)' },
+                '100%': { transform: 'scale(1)' }
+            },
+            moveBlob: {
+              '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
+              '25%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '50%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '75%': { transform: 'translate(50px, 40px) scale(1.2)' },
+            },
+            'animated-gradient': {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+            },
+            textAlive: {
+              '0%, 100%': { transform: 'scale(1)', letterSpacing: '-0.5px' },
+              '50%': { transform: 'scale(1.02)', letterSpacing: '0.5px' },
+            },
+            'logo-dot-glow': {
+              '0%, 100%': { filter: 'drop-shadow(0 0 3px var(--color-primary))' },
+              '50%': { filter: 'drop-shadow(0 0 8px var(--color-primary))' },
+            },
+            'logo-text-glow': {
+              '0%, 100%': { filter: 'drop-shadow(0 0 1px var(--color-primary))' },
+              '50%': { filter: 'drop-shadow(0 0 4px var(--color-primary))' },
+            },
+            'pulse-subtle': {
+                '0%, 100%': { opacity: '0.6' },
+                '50%': { opacity: '1' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/css">
+    :root {
+      --color-primary: #7B3EF0;
+      --color-accent: #6AEBFF;
+      --color-surface-dark: #131219;
+      --color-surface-light: #FFFFFF;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+        font-family: 'Montserrat', 'Inter', sans-serif;
+    }
+    .light .premium-header-container, .light .premium-header-container button {
+        color: #0D0C12; /* Corresponds to light:text-text_light */
+    }
+    .light .premium-header-container {
+        background: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 
+          0 8px 32px rgba(0, 0, 0, 0.1), 
+          0 0 15px rgba(123, 62, 240, 0.05);
+    }
+    .light .premium-header-logo {
+        color: #0D0C12;
+    }
+    .light .premium-header-nav-link {
+        color: rgba(0, 0, 0, 0.7);
+    }
+    .light .premium-header-nav-link:hover {
+        color: #0D0C12;
+        text-shadow: 0 0 8px rgba(123, 62, 240, 0.3);
+    }
+    .light .hamburger-line {
+        background-color: #0D0C12;
+    }
+    .light .premium-header-mobile-menu {
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .light .mobile-theme-toggle-btn {
+        color: rgba(0, 0, 0, 0.7);
+    }
+    .light .mobile-theme-toggle-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #0D0C12;
+    }
+    .light .theme-toggle-btn {
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .light .theme-toggle-btn:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .light .theme-toggle-btn svg {
+        color: #0D0C12;
+    }
+    .light .search-btn {
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .light .search-btn:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .light .search-btn svg {
+        color: #0D0C12;
+    }
+    .light .mobile-action-btn {
+        color: rgba(0, 0, 0, 0.7);
+    }
+    .light .mobile-action-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #0D0C12;
+    }
+  </style>
+  <style type="text/css" id="header-styles">
+    :root {
+      --header-ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --header-duration: 0.3s;
+    }
+    /* Using body text color for consistency with the rest of the app */
+    .dark .premium-header-container, .dark .premium-header-container button {
+        color: #F0F0F1; /* Corresponds to dark:text-text_dark */
+    }
+
+    .premium-header-container {
+      max-width: 1100px;
+      width: 95%;
+      margin: 1rem auto 0;
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+
+      /* Frosted Glass Effect */
+      background: rgba(21, 21, 31, 0.3);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      /* Glow/Shadow */
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3), 
+        0 0 15px rgba(123, 62, 240, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+      
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    
+    .header-animate-in {
+       animation: slideDownFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+       animation-delay: 0.2s;
+    }
+
+    .premium-header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Logo */
+    .premium-header-logo {
+      font-family: 'Montserrat', 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #fff;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    /* Desktop Navigation */
+    .premium-header-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .premium-header-nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color var(--header-duration) var(--header-ease), text-shadow var(--header-duration) var(--header-ease);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0;
+    }
+
+    .premium-header-nav-link:hover {
+      color: #fff;
+      text-shadow: 0 0 8px #6AEBFF;
+    }
+
+    /* CTA Button & Actions Wrapper */
+    .premium-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .premium-header-cta {
+      background-color: #7B3EF0;
+      color: #fff !important;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform var(--header-duration) var(--header-ease), box-shadow var(--header-duration) var(--header-ease);
+      box-shadow: 0 0 10px rgba(123, 62, 240, 0.5), 0 0 20px rgba(123, 62, 240, 0.3);
+      border: none;
+      cursor: pointer;
+    }
+
+    .premium-header-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(123, 62, 240, 0.8), 0 0 30px rgba(123, 62, 240, 0.5);
+    }
+    
+    /* Hamburger Menu Icon */
+    .premium-header-hamburger {
+      display: none; /* Hidden on desktop */
+      flex-direction: column;
+      justify-content: space-around;
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 60;
+    }
+
+    .hamburger-line {
+      width: 24px;
+      height: 2px;
+      background-color: #fff;
+      border-radius: 10px;
+      transition: all var(--header-duration) var(--header-ease);
+      position: relative;
+      transform-origin: 1px;
+    }
+    
+    .premium-header-hamburger.active .hamburger-line:nth-child(1) {
+      transform: rotate(45deg);
+    }
+    .premium-header-hamburger.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    .premium-header-hamburger.active .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg);
+    }
+
+    /* Mobile Dropdown Menu */
+    .premium-header-mobile-menu {
+      display: none;
+      flex-direction: column;
+      max-height: calc(100vh - 100px); /* For scrolling on small screens */
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      background: rgba(21, 21, 31, 0.7);
+      backdrop-filter: blur(15px) saturate(180%);
+      -webkit-backdrop-filter: blur(15px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem;
+      
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity var(--header-duration) var(--header-ease), transform var(--header-duration) var(--header-ease);
+      pointer-events: none;
+    }
+    
+    .premium-header-mobile-menu.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .mobile-menu-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow-y: auto; /* Enable scrolling */
+      flex-grow: 1;
+    }
+    
+    .mobile-menu-nav::-webkit-scrollbar { width: 4px; }
+    .mobile-menu-nav::-webkit-scrollbar-track { background: transparent; }
+    .mobile-menu-nav::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+
+    .premium-header-nav-link.mobile {
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+    }
+    
+    .premium-header-nav-link.mobile:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      text-shadow: none; /* Override desktop hover */
+    }
+    
+    .mobile-menu-footer {
+        padding-top: 1rem;
+        margin-top: auto; /* Push to bottom */
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .mobile-theme-toggle-btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        background: none;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    
+    .mobile-theme-toggle-btn:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #fff;
+    }
+    
+    .mobile-theme-toggle-btn .icon-wrapper {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        overflow: hidden;
+    }
+    
+    .mobile-theme-toggle-btn svg {
+        position: absolute;
+    }
+
+    /* Search and Theme Toggle Buttons */
+    .search-btn, .theme-toggle-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        padding: 0;
+        border-radius: 9999px;
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        transition: background-color 0.2s ease;
+    }
+    
+    .search-btn:hover, .theme-toggle-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .theme-toggle-btn svg, .icon-wrapper svg {
+        width: 20px;
+        height: 20px;
+        transition: opacity 0.3s var(--header-ease), transform 0.4s var(--header-ease);
+    }
+    
+    .theme-toggle-btn .moon-icon, .icon-wrapper .moon-icon {
+        position: absolute;
+    }
+    
+    .sun-icon.active, .moon-icon.active {
+        opacity: 1;
+        transform: rotate(0) scale(1);
+    }
+    
+    .sun-icon:not(.active) {
+        opacity: 0;
+        transform: rotate(-90deg) scale(0.5);
+    }
+
+    .moon-icon:not(.active) {
+        opacity: 0;
+        transform: rotate(90deg) scale(0.5);
+    }
+    
+    /* Mobile Search Button */
+    .mobile-action-btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        background: none;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    
+    .mobile-action-btn:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #fff;
+    }
+    
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 49; /* Below header content but above page content */
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none;
+    }
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Keyframes */
+    @keyframes slideDownFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 8px var(--color-primary), 0 0 16px var(--color-primary);
+        opacity: 0.8;
+      }
+      50% {
+        text-shadow: 0 0 16px var(--color-primary), 0 0 32px var(--color-primary), 0 0 40px var(--color-accent);
+        opacity: 1;
+      }
+    }
+
+    .animate-glow {
+      animation: glow 3.5s ease-in-out infinite;
+    }
+
+    /* Responsive Breakpoint */
+    @media (max-width: 960px) {
+      .premium-header-nav, .premium-header-cta {
+        display: none;
+      }
+      .premium-header-hamburger {
+        display: flex;
+      }
+      .premium-header-mobile-menu {
+        display: flex;
+      }
+      .premium-header-container {
+        width: 90%;
+      }
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.0",
+    "path": "https://aistudiocdn.com/path@^0.12.7",
+    "vite": "https://aistudiocdn.com/vite@^7.2.2",
+    "url": "https://aistudiocdn.com/url@^0.11.4",
+    "utils/smoothScroll": "./utils/smoothScroll.ts"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
