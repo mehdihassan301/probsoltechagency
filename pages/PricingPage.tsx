@@ -1,12 +1,227 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Page } from '../types';
-import { pricingTiers } from '../components/constants';
+import { pricingTiers, serviceDetails } from '../components/constants';
 import AnimatedCardBackground from '../components/AnimatedCardBackground';
 import { SpinnerIcon } from '../components/Icons';
 
 interface PricingPageProps {
   setPage: (page: Page, id?: string) => void;
 }
+
+const SupportRequestForm: React.FC<{onClose: () => void}> = ({ onClose }) => {
+  const [formState, setFormState] = useState({ name: '', email: '', service: '', budget: '', description: '' });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!formState.name.trim()) newErrors.name = 'Full Name is required.';
+    if (!formState.email.trim()) {
+      newErrors.email = 'Email Address is required.';
+    } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+    if (!formState.service) newErrors.service = 'Please select a service.';
+    if (!formState.description.trim()) newErrors.description = 'Please describe your project.';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      setIsSubmitting(true);
+      setSubmitError(null);
+      try {
+        const response = await fetch('https://formspree.io/f/mpwozakj', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ ...formState, form_source: 'Pricing Page - Budget Support Request' }),
+        });
+        if (response.ok) {
+          setSubmitted(true);
+        } else {
+          throw new Error('Form submission failed.');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        setSubmitError('Sorry, there was an issue sending your request. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="mt-12 text-center p-8 bg-green-500/10 text-green-700 dark:text-green-300 rounded-lg animate-fade-in" role="alert">
+        <h3 className="font-heading text-2xl font-bold">Thank You!</h3>
+        <p>Your support request has been received. We'll review it and get back to you if it aligns with our support program.</p>
+        <button onClick={onClose} className="mt-4 px-4 py-2 text-sm font-semibold text-green-800 dark:text-green-200 bg-green-200/50 dark:bg-green-300/20 rounded-md">Close</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-12 text-left bg-surface_light dark:bg-surface_dark border border-border_light dark:border-border_dark rounded-xl p-8 md:p-12 animate-fade-in-up">
+        <h3 className="font-heading text-2xl font-bold text-text_light dark:text-text_dark text-center mb-6">Budget Support Request</h3>
+        <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            <div className="grid sm:grid-cols-2 gap-6">
+                 <div>
+                    <label htmlFor="support-name" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Full Name</label>
+                    <input type="text" name="name" id="support-name" required value={formState.name} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.name ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
+                    {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
+                </div>
+                <div>
+                    <label htmlFor="support-email" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Email Address</label>
+                    <input type="email" name="email" id="support-email" required value={formState.email} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
+                    {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
+                </div>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-6">
+                <div>
+                    <label htmlFor="support-service" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Service of Interest</label>
+                    <select name="service" id="support-service" required value={formState.service} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark ${errors.service ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}>
+                        <option value="" disabled>Select a service...</option>
+                        {serviceDetails.map(s => <option key={s.id} value={s.title}>{s.title}</option>)}
+                        <option value="Other">Other</option>
+                    </select>
+                    {errors.service && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.service}</p>}
+                </div>
+                <div>
+                    <label htmlFor="support-budget" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Your Budget (USD) <span className="text-xs">(Optional)</span></label>
+                    <input type="text" name="budget" id="support-budget" placeholder="e.g., $500" value={formState.budget} onChange={handleChange} className="w-full bg-bg_light dark:bg-bg_dark border border-border_light dark:border-border_dark rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light focus:ring-primary focus:border-primary"/>
+                </div>
+            </div>
+            <div>
+                <label htmlFor="support-description" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Project Description</label>
+                <textarea name="description" id="support-description" rows={4} required placeholder="Tell us about your project and why you need support..." value={formState.description} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.description ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}></textarea>
+                {errors.description && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.description}</p>}
+            </div>
+            <div>
+                <button type="submit" disabled={isSubmitting} className="w-full px-6 py-3 bg-primary text-white font-semibold rounded-lg text-base hover:bg-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/30 disabled:opacity-70 disabled:scale-100 flex items-center justify-center gap-2">
+                    {isSubmitting && <SpinnerIcon className="w-5 h-5" />}
+                    {isSubmitting ? 'Submitting...' : 'Submit Request'}
+                </button>
+            </div>
+            {submitError && <p className="mt-4 text-center text-red-600 dark:text-red-400">{submitError}</p>}
+        </form>
+    </div>
+  );
+};
+
+const CollaborationProposalForm: React.FC<{onClose: () => void}> = ({ onClose }) => {
+  const [formState, setFormState] = useState({ name: '', email: '', title: '', proposal: '', needs: '' });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!formState.name.trim()) newErrors.name = 'Full Name is required.';
+    if (!formState.email.trim()) {
+      newErrors.email = 'Email Address is required.';
+    } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+    if (!formState.title.trim()) newErrors.title = 'Please provide a title for your idea.';
+    if (!formState.proposal.trim()) newErrors.proposal = 'Please describe your proposal.';
+    if (!formState.needs.trim()) newErrors.needs = 'Please tell us what you need from us.';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      setIsSubmitting(true);
+      setSubmitError(null);
+      try {
+        const response = await fetch('https://formspree.io/f/mpwozakj', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ ...formState, form_source: 'Pricing Page - Collaboration Proposal' }),
+        });
+        if (response.ok) {
+          setSubmitted(true);
+        } else {
+          throw new Error('Form submission failed.');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        setSubmitError('Sorry, there was an issue sending your proposal. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="mt-12 text-center p-8 bg-green-500/10 text-green-700 dark:text-green-300 rounded-lg animate-fade-in" role="alert">
+        <h3 className="font-heading text-2xl font-bold">Proposal Sent!</h3>
+        <p>Thank you for your interest in collaborating. We'll review your proposal and reach out if it's a good fit.</p>
+        <button onClick={onClose} className="mt-4 px-4 py-2 text-sm font-semibold text-green-800 dark:text-green-200 bg-green-200/50 dark:bg-green-300/20 rounded-md">Close</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-12 text-left bg-surface_light dark:bg-surface_dark border border-border_light dark:border-border_dark rounded-xl p-8 md:p-12 animate-fade-in-up">
+        <h3 className="font-heading text-2xl font-bold text-text_light dark:text-text_dark text-center mb-6">Collaboration Proposal</h3>
+        <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            <div className="grid sm:grid-cols-2 gap-6">
+                <div>
+                    <label htmlFor="collab-name" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Full Name</label>
+                    <input type="text" name="name" id="collab-name" required value={formState.name} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.name ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
+                    {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
+                </div>
+                <div>
+                    <label htmlFor="collab-email" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Email Address</label>
+                    <input type="email" name="email" id="collab-email" required value={formState.email} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
+                    {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
+                </div>
+            </div>
+            <div>
+                <label htmlFor="collab-title" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Your Idea / Venture</label>
+                <input type="text" name="title" id="collab-title" required placeholder="e.g., AI-Powered App for..." value={formState.title} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.title ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
+                {errors.title && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.title}</p>}
+            </div>
+             <div>
+                <label htmlFor="collab-proposal" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Proposal & Your Contribution</label>
+                <textarea name="proposal" id="collab-proposal" rows={4} required placeholder="Briefly describe your idea and what you bring to the table (e.g., industry expertise, audience, etc.)." value={formState.proposal} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.proposal ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}></textarea>
+                {errors.proposal && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.proposal}</p>}
+            </div>
+            <div>
+                <label htmlFor="collab-needs" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">What you need from ProbSolv</label>
+                <textarea name="needs" id="collab-needs" rows={4} required placeholder="What specific expertise or resources are you looking for from us?" value={formState.needs} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.needs ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}></textarea>
+                {errors.needs && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.needs}</p>}
+            </div>
+            <div>
+                <button type="submit" disabled={isSubmitting} className="w-full px-6 py-3 bg-primary text-white font-semibold rounded-lg text-base hover:bg-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/30 disabled:opacity-70 disabled:scale-100 flex items-center justify-center gap-2">
+                    {isSubmitting && <SpinnerIcon className="w-5 h-5" />}
+                    {isSubmitting ? 'Submitting...' : 'Propose Collaboration'}
+                </button>
+            </div>
+            {submitError && <p className="mt-4 text-center text-red-600 dark:text-red-400">{submitError}</p>}
+        </form>
+    </div>
+  );
+};
+
 
 const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
   const tierRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -20,6 +235,10 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const [activeForm, setActiveForm] = useState<'support' | 'collab' | null>(null);
+  const formSectionRef = useRef<HTMLElement>(null);
+
 
   useEffect(() => {
     const titleObserver = new IntersectionObserver(([entry]) => {
@@ -54,6 +273,14 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
       });
     };
   }, []);
+  
+  useEffect(() => {
+    if (activeForm && formSectionRef.current) {
+        setTimeout(() => {
+            formSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+    }
+  }, [activeForm]);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -115,10 +342,10 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
             key={tier.name} 
             ref={el => { tierRefs.current[index] = el; }}
             data-index={index}
-            className={`relative rounded-xl p-8 flex flex-col transition-all duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl overflow-hidden will-change-[transform,opacity] ${visibleTiers.has(index) ? 'animate-fade-in-up' : 'opacity-0'} ${
+            className={`relative rounded-xl p-8 flex flex-col transition-all duration-500 ease-in-out transform hover:scale-[1.03] hover:-translate-y-1 overflow-hidden will-change-[transform,opacity] ${visibleTiers.has(index) ? 'animate-fade-in-up' : 'opacity-0'} ${
             tier.popular 
-              ? 'border-2 border-primary bg-surface_light/90 dark:bg-surface_dark/90 shadow-2xl shadow-primary/20' 
-              : 'border border-border_light dark:border-border_dark bg-surface_light/90 dark:bg-surface_dark/90 hover:border-primary dark:hover:border-accent hover:shadow-primary/20 dark:hover:shadow-accent/20'
+              ? 'border-2 border-primary bg-surface_light/90 dark:bg-surface_dark/90 shadow-2xl shadow-primary/20 dark:shadow-accent/10' 
+              : 'border border-border_light dark:border-border_dark bg-surface_light/90 dark:bg-surface_dark/90 hover:border-primary dark:hover:border-accent hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-accent/20'
             }`}
             style={{ animationDelay: `${index * 150}ms` }}
           >
@@ -179,7 +406,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
             onClick={() => setIsCustomFormVisible(prev => !prev)}
             className="px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300 transform hover:scale-105"
         >
-            Request a Bespoke Solution
+            {isCustomFormVisible ? 'Close Custom Form' : 'Request a Bespoke Solution'}
         </button>
       </div>
 
@@ -226,6 +453,31 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
             )}
         </div>
       )}
+
+      <section ref={formSectionRef} className="mt-16 sm:mt-24 max-w-4xl mx-auto text-center scroll-mt-24">
+        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark">Alternative Partnership Models</h2>
+        <p className="mt-4 text-subtext_light dark:text-subtext_dark max-w-3xl mx-auto">
+            We believe in fostering innovation and supporting great ideas. If our standard plans aren't the right fit, let's explore other ways to work together.
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+            <button
+                onClick={() => setActiveForm(activeForm === 'collab' ? null : 'collab')}
+                className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-purple-600 transition-all duration-300 transform hover:scale-105"
+            >
+                {activeForm === 'collab' ? 'Close Proposal Form' : 'Propose a Collaboration'}
+            </button>
+            <button
+                onClick={() => setActiveForm(activeForm === 'support' ? null : 'support')}
+                className="px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300 transform hover:scale-105"
+            >
+                {activeForm === 'support' ? 'Close Support Form' : 'Request Budget Support'}
+            </button>
+        </div>
+
+        {activeForm === 'support' && <SupportRequestForm onClose={() => setActiveForm(null)} />}
+        {activeForm === 'collab' && <CollaborationProposalForm onClose={() => setActiveForm(null)} />}
+      </section>
+
     </div>
   );
 };
