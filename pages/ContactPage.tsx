@@ -1,136 +1,176 @@
 import React, { useState } from 'react';
-import { serviceDetails } from '../components/constants';
-import { SpinnerIcon } from '../components/Icons';
+import { TwitterIcon, LinkedInIcon, GitHubIcon, ArrowRightIcon, SpinnerIcon } from './Icons';
+import { Page } from '../types';
+import Logo from './Logo';
+import GradientMesh from './GradientMesh';
 
-const ContactPage: React.FC = () => {
-  const [formState, setFormState] = useState({ name: '', email: '', phone: '', projectType: '', message: '' });
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [submitted, setSubmitted] = useState(false);
+interface FooterProps {
+  setPage: (page: Page) => void;
+}
+
+const FooterLink: React.FC<{ page: Page; setPage: (page: Page) => void; children: React.ReactNode }> = ({ page, setPage, children }) => (
+    <li>
+        <button onClick={() => setPage(page)} className="hover:text-primary dark:hover:text-accent transition-colors duration-200">
+            {children}
+        </button>
+    </li>
+);
+
+
+const Footer: React.FC<FooterProps> = ({ setPage }) => {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (error) {
+      setError(null);
+    }
   };
 
-  const validate = () => {
-    const newErrors: { [key: string]: string } = {};
-    if (!formState.name.trim()) {
-      newErrors.name = 'Full Name is required.';
-    }
-    if (!formState.email.trim()) {
-      newErrors.email = 'Email Address is required.';
-    } else if (!/\S+@\S+\.\S+/.test(formState.email)) {
-      newErrors.email = 'Please enter a valid email address.';
-    }
-    if (!formState.phone.trim()) {
-      newErrors.phone = 'Phone number is required.';
-    } else if (!/^\+?[1-9]\d{6,14}$/.test(formState.phone.replace(/[\s-()]/g, ''))) {
-      newErrors.phone = 'Please enter a valid phone number with country code.';
-    }
-    if (!formState.projectType) {
-      newErrors.projectType = 'Please select a project type.';
-    }
-    if (!formState.message.trim()) {
-      newErrors.message = 'Message is required.';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      setIsSubmitting(true);
-      setSubmitError(null);
-      try {
-        const response = await fetch('https://formspree.io/f/mpwozakj', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({ ...formState, form_source: 'Contact Page' }),
-        });
+    setError(null);
 
-        if (response.ok) {
-          setSubmitted(true);
-        } else {
-          throw new Error('Form submission failed.');
-        }
-      } catch (error) {
-        console.error('Submission error:', error);
-        setSubmitError('Sorry, there was an issue sending your message. Please try again later.');
-      } finally {
-        setIsSubmitting(false);
+    if (!email.trim()) {
+      setError('Email address is required.');
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('https://formspree.io/f/mpwozakj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ email: email, form_source: 'Newsletter Subscription' }),
+      });
+
+      if (response.ok) {
+        setSubscribed(true);
+        setEmail('');
+        setTimeout(() => setSubscribed(false), 3000); // Reset after 3s
+      } else {
+        throw new Error('Subscription failed.');
       }
+    } catch (err) {
+      console.error('Subscription error:', err);
+      setError('Could not subscribe. Please try again.');
+      setTimeout(() => setError(null), 3000); // Hide error after 3s
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  const socialLinks = [
+    { icon: TwitterIcon, href: '#', label: 'Twitter' },
+    { icon: LinkedInIcon, href: '#', label: 'LinkedIn' },
+    { icon: GitHubIcon, href: '#', label: 'GitHub' },
+  ];
 
   return (
-    <div className="pt-24 sm:pt-32 pb-16 sm:pb-20 container mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-2xl mx-auto mb-16">
-        <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-text_light dark:text-text_dark">Get In Touch</h1>
-        <p className="mt-4 text-base md:text-lg text-subtext_light dark:text-subtext_dark">
-          Have a project in mind? Let's talk. We're here to help you turn your ideas into reality.
-        </p>
-      </div>
-
-      <div className="max-w-2xl mx-auto bg-surface_light dark:bg-surface_dark border border-border_light dark:border-border_dark rounded-xl p-8 md:p-12">
-        {submitted ? (
-          <div className="text-center py-10 animate-fade-in">
-            <h2 className="font-heading text-2xl font-bold text-primary dark:text-accent mb-4">Thank you for your message!</h2>
-            <p className="text-subtext_light dark:text-subtext_dark">We've received your submission and will get back to you as soon as possible.</p>
+    <footer className="relative overflow-hidden bg-surface_light dark:bg-surface_dark text-subtext_light dark:text-subtext_dark border-t border-border_light dark:border-border_dark">
+      <GradientMesh />
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 text-sm">
+          {/* Left Side: Info & Socials */}
+          <div className="lg:col-span-4 space-y-4">
+            <Logo setPage={setPage} />
+            <p className="max-w-md">Building the Digital Backbone of Your Business.</p>
+            <div className="flex space-x-4">
+              {socialLinks.map((social, index) => (
+                <a 
+                  key={index} 
+                  href={social.href} 
+                  aria-label={social.label} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-subtext_light dark:text-subtext_dark hover:text-primary dark:hover:text-accent"
+                >
+                  <social.icon className="w-6 h-6" />
+                </a>
+              ))}
+            </div>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+          
+          {/* Middle: Links */}
+          <div className="md:col-span-2 lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Full Name</label>
-              <input type="text" name="name" id="name" required value={formState.name} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.name ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
-              {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
-            </div>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Email Address</label>
-                <input type="email" name="email" id="email" required value={formState.email} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
-                {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Phone Number</label>
-                <input type="tel" name="phone" id="phone" required placeholder="+1 (555) 123-4567" value={formState.phone} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.phone ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}/>
-                {errors.phone && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.phone}</p>}
-              </div>
+              <h4 className="font-heading font-semibold text-text_light dark:text-text_dark mb-4">Company</h4>
+              <ul className="space-y-3">
+                <FooterLink page="About" setPage={setPage}>About Us</FooterLink>
+                <FooterLink page="Blog" setPage={setPage}>Blog</FooterLink>
+                <FooterLink page="Careers" setPage={setPage}>Careers</FooterLink>
+              </ul>
             </div>
             <div>
-              <label htmlFor="projectType" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Project Type</label>
-              <select name="projectType" id="projectType" required value={formState.projectType} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark ${errors.projectType ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}>
-                <option value="" disabled>Select a service...</option>
-                {serviceDetails.map(service => (
-                  <option key={service.id} value={service.title}>{service.title}</option>
-                ))}
-                <option value="Other">Other</option>
-              </select>
-              {errors.projectType && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.projectType}</p>}
+              <h4 className="font-heading font-semibold text-text_light dark:text-text_dark mb-4">Services</h4>
+              <ul className="space-y-3">
+                <FooterLink page="Services" setPage={setPage}>Our Services</FooterLink>
+                <FooterLink page="Portfolio" setPage={setPage}>Portfolio</FooterLink>
+                <FooterLink page="Pricing" setPage={setPage}>Pricing</FooterLink>
+              </ul>
             </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-subtext_light dark:text-subtext_dark mb-2">Message</label>
-              <textarea name="message" id="message" rows={5} required value={formState.message} onChange={handleChange} className={`w-full bg-bg_light dark:bg-bg_dark border rounded-md p-3 text-text_light dark:text-text_dark placeholder-subtext_light ${errors.message ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}></textarea>
-              {errors.message && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>}
+             <div>
+              <h4 className="font-heading font-semibold text-text_light dark:text-text_dark mb-4">Support</h4>
+              <ul className="space-y-3">
+                <FooterLink page="Contact" setPage={setPage}>Contact Us</FooterLink>
+                <FooterLink page="PrivacyPolicy" setPage={setPage}>Privacy Policy</FooterLink>
+                <FooterLink page="TermsOfService" setPage={setPage}>Terms of Service</FooterLink>
+              </ul>
             </div>
-            <div>
-              <button type="submit" disabled={isSubmitting} className="w-full px-6 py-3 bg-primary text-white font-semibold rounded-lg text-base hover:bg-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/30 disabled:opacity-70 disabled:scale-100 flex items-center justify-center gap-2">
-                {isSubmitting && <SpinnerIcon className="w-5 h-5" />}
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </button>
-            </div>
-            {submitError && <p className="mt-4 text-center text-red-600 dark:text-red-400">{submitError}</p>}
-          </form>
-        )}
+          </div>
+
+          {/* Right Side: Newsletter */}
+          <div className="lg:col-span-3">
+            <h4 className="font-heading font-semibold text-text_light dark:text-text_dark mb-2">Join Our Newsletter</h4>
+            <p className="mb-4 text-sm">Get the latest insights on tech, design, and AI.</p>
+            {subscribed ? (
+              <p role="status" className="text-green-500 animate-fade-in">Thank you for subscribing!</p>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} noValidate>
+                <div className="flex items-center max-w-sm">
+                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+                  <input
+                    id="newsletter-email"
+                    type="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    placeholder="Enter your email"
+                    required
+                    aria-invalid={!!error}
+                    aria-describedby="newsletter-error"
+                    className={`w-full bg-surface_light dark:bg-bg_dark border rounded-l-md p-2 text-text_light dark:text-text_dark placeholder-subtext_light dark:placeholder-subtext_dark text-sm ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}
+                  />
+                  <button 
+                    type="submit" 
+                    aria-label="Subscribe to newsletter"
+                    disabled={isSubmitting}
+                    className="bg-primary text-white p-2 rounded-r-md hover:bg-purple-600 flex items-center justify-center h-[42px] w-12 disabled:bg-primary/70"
+                  >
+                    {isSubmitting ? <SpinnerIcon className="w-5 h-5" /> : <ArrowRightIcon className="w-5 h-5" />}
+                  </button>
+                </div>
+                 {error && <p id="newsletter-error" role="alert" className="mt-2 text-sm text-red-500 animate-fade-in">{error}</p>}
+              </form>
+            )}
+          </div>
+        </div>
+        
+        <div className="mt-12 pt-8 border-t border-border_light dark:border-border_dark text-center text-sm">
+          <p>&copy; {new Date().getFullYear()} ProbSolv Tech Agency. All Rights Reserved.</p>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
-export default ContactPage;
+export default Footer;
