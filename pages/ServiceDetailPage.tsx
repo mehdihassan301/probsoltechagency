@@ -125,8 +125,12 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ service, setPage 
   return (
     <div className="pt-24 pb-16 sm:pb-20">
       {/* Hero */}
-      <section className="relative h-80 sm:h-96 flex items-center justify-center text-center px-4" aria-labelledby="service-hero-title">
-        <ParticleBackground type="waves" />
+      <section className="relative h-80 sm:h-96 flex items-center justify-center text-center px-4 overflow-hidden" aria-labelledby="service-hero-title">
+        <div className="absolute inset-0">
+          <img src={service.heroImage} alt={`${service.title} hero image`} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-white/50 dark:bg-black/60"></div>
+        </div>
+        <ParticleBackground type="dots" />
         <div className="relative z-10">
           <h1 id="service-hero-title" className="font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold text-text_light dark:text-white drop-shadow-lg">{service.title}</h1>
           <p className="mt-4 text-base md:text-lg max-w-2xl mx-auto text-subtext_light dark:text-gray-300 drop-shadow-lg">{service.description}</p>
