@@ -51,7 +51,7 @@ const ContactPage: React.FC = () => {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
-          body: JSON.stringify(formState),
+          body: JSON.stringify({ ...formState, form_source: 'Contact Page' }),
         });
 
         if (response.ok) {
