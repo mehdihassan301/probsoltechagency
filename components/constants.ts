@@ -288,14 +288,14 @@ export const blogPosts: Post[] = [
                 <li><strong>Higher Perceived Value:</strong> A polished, premium feel allows for better pricing power.</li>
                 <li><strong>Stronger Brand Recall:</strong> A unique vibe makes your app unforgettable in a sea of competitors.</li>
             </ul>
-            <p>At ProbSolv, we call this "Vibe-Coding." It's a philosophy that places the user's emotional journey at the forefront of the development process. We obsess over the details—from haptic feedback to loading screen animations—to ensure your app doesn't just function flawlessly, but also feels incredible to use. In a world of fleeting digital trends, a strong vibe is what creates a classic.</p>
+            <p>At ProbSolv, we call this "Vibe-Coding Generally used for aesthetic designed apps." It's a philosophy that places the user's emotional journey at the forefront of the development process. We obsess over the details—from haptic feedback to loading screen animations—to ensure your app doesn't just function flawlessly, but also feels incredible to use. In a world of fleeting digital trends, a strong vibe is what creates a classic.</p>
         `
     },
     {
         id: 'ai-is-eating-the-world',
         title: 'Your New Hardest-Working Employee is an AI: A Guide to Business Automation',
         author: 'Samantha Riley',
-        date: 'October 22, 2023',
+        date: 'October 22, 2025',
         category: 'AI Automations',
         image: '/images/blog/ai-is-eating-the-world.jpg',
         excerpt: 'Repetitive tasks are draining your team\'s potential. We break down how custom AI assistants and automated workflows can handle the grunt work, freeing up your human talent to focus on innovation and growth.',
@@ -419,9 +419,9 @@ export const pricingTiers: PricingTier[] = [
   },
   {
     name: 'Growth Website',
-    price: '$1,000',
-    originalPrice: '$170',
-    discount: '83% OFF (49 spots remaining)',
+    price: '$170',
+    originalPrice: '$999',
+    discount: '83% OFF (29 spots remaining)',
     description: 'Ideal for growing businesses ready to scale with a multi-page, feature-rich website.',
     features: [
       'Up to 10 Custom Pages',
