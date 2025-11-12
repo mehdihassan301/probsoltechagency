@@ -21,40 +21,54 @@ const Footer: React.FC<FooterProps> = ({ setPage }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubmitting(true);
-      setSubmitError(null);
-      try {
-        const response = await fetch('https://formspree.io/f/mpwozakj', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({ email: email, form_source: 'Newsletter Subscription' }),
-        });
-
-        if (response.ok) {
-          setSubscribed(true);
-          setEmail('');
-          setTimeout(() => setSubscribed(false), 3000); // Reset after 3s
-        } else {
-          throw new Error('Subscription failed.');
-        }
-      } catch (error) {
-        console.error('Subscription error:', error);
-        setSubmitError('Could not subscribe. Please try again.');
-        setTimeout(() => setSubmitError(null), 3000); // Hide error after 3s
-      } finally {
-        setIsSubmitting(false);
-      }
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (error) {
+      setError(null);
     }
   };
 
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!email.trim()) {
+      setError('Email address is required.');
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('https://formspree.io/f/mpwozakj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ email: email, form_source: 'Newsletter Subscription' }),
+      });
+
+      if (response.ok) {
+        setSubscribed(true);
+        setEmail('');
+        setTimeout(() => setSubscribed(false), 3000); // Reset after 3s
+      } else {
+        throw new Error('Subscription failed.');
+      }
+    } catch (err) {
+      console.error('Subscription error:', err);
+      setError('Could not subscribe. Please try again.');
+      setTimeout(() => setError(null), 3000); // Hide error after 3s
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const socialLinks = [
     { icon: TwitterIcon, href: '#', label: 'Twitter' },
@@ -122,28 +136,32 @@ const Footer: React.FC<FooterProps> = ({ setPage }) => {
             {subscribed ? (
               <p role="status" className="text-green-500 animate-fade-in">Thank you for subscribing!</p>
             ) : (
-              <form onSubmit={handleNewsletterSubmit} className="flex items-center max-w-sm">
-                <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-                <input
-                  id="newsletter-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  required
-                  className="w-full bg-surface_light dark:bg-bg_dark border border-border_light dark:border-border_dark rounded-l-md p-2 text-text_light dark:text-text_dark placeholder-subtext_light dark:placeholder-subtext_dark focus:ring-primary focus:border-primary text-sm"
-                />
-                <button 
-                  type="submit" 
-                  aria-label="Subscribe to newsletter"
-                  disabled={isSubmitting}
-                  className="bg-primary text-white p-2 rounded-r-md hover:bg-purple-600 flex items-center justify-center h-[42px] w-12 disabled:bg-primary/70"
-                >
-                  {isSubmitting ? <SpinnerIcon className="w-5 h-5" /> : <ArrowRightIcon className="w-5 h-5" />}
-                </button>
+              <form onSubmit={handleNewsletterSubmit} noValidate>
+                <div className="flex items-center max-w-sm">
+                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+                  <input
+                    id="newsletter-email"
+                    type="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    placeholder="Enter your email"
+                    required
+                    aria-invalid={!!error}
+                    aria-describedby="newsletter-error"
+                    className={`w-full bg-surface_light dark:bg-bg_dark border rounded-l-md p-2 text-text_light dark:text-text_dark placeholder-subtext_light dark:placeholder-subtext_dark text-sm ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-border_light dark:border-border_dark focus:ring-primary focus:border-primary'}`}
+                  />
+                  <button 
+                    type="submit" 
+                    aria-label="Subscribe to newsletter"
+                    disabled={isSubmitting}
+                    className="bg-primary text-white p-2 rounded-r-md hover:bg-purple-600 flex items-center justify-center h-[42px] w-12 disabled:bg-primary/70"
+                  >
+                    {isSubmitting ? <SpinnerIcon className="w-5 h-5" /> : <ArrowRightIcon className="w-5 h-5" />}
+                  </button>
+                </div>
+                 {error && <p id="newsletter-error" role="alert" className="mt-2 text-sm text-red-500 animate-fade-in">{error}</p>}
               </form>
             )}
-             {submitError && <p role="alert" className="mt-2 text-sm text-red-500 animate-fade-in">{submitError}</p>}
           </div>
         </div>
         
