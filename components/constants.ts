@@ -258,15 +258,15 @@ export const portfolioItems: PortfolioItem[] = [
             { metric: "Average Order Value", value: "+20%", description: "The new subscription builder and product up-sells increased the average order value by 20%." },
             { metric: "Recurring Revenue", value: "+150%", description: "The subscription model became a huge success, growing their monthly recurring revenue by 150% in six months." }
         ],
-        technologies: ['Next.js', 'React', 'Shopify Plus API', 'GraphQL', 'Vercel', 'Stripe']
+        technologies: ['Next.js', 'React', 'Shopify Plus API', 'Make', 'GraphQL', 'Stripe']
     }
 ];
 
 export const testimonials = [
-    { name: 'Sarah L.', role: 'CEO, Innovate Co.', message: 'ProbSolv transformed our online presence. Their attention to detail and modern design sense is unparalleled. Our new website is fast, beautiful, and generating more leads than ever.', stars: 5 },
-    { name: 'Michael B.', role: 'Founder, TechStream', message: 'The AI chatbot they built for us has cut down our support tickets by 40%. It\'s incredibly smart and has freed up our team to focus on bigger issues. A total game-changer.', stars: 5 },
-    { name: 'Jessica T.', role: 'Creative Director, Aura Studios', message: 'I\'ve never worked with a team that understood our "vibe" so perfectly. The app they delivered is not just functional, it\'s a work of art that our users absolutely love.', stars: 5 },
-    { name: 'David R.', role: 'CTO, DataFlow', message: 'Professional, efficient, and highly skilled. The ProbSolv team delivered our project on time and exceeded all our expectations. We will definitely be working with them again.', stars: 5 },
+    { name: 'Sarah L.', role: ' Innovate Co.', message: 'ProbSolv transformed our online presence. Their attention to detail and modern design sense is unparalleled. Our new website is fast, beautiful, and generating more leads than ever.', stars: 5 },
+    { name: 'Michael B.', role: ' Founder, TechStream', message: 'The AI chatbot they built for us has cut down our support tickets by 40%. It\'s incredibly smart and has freed up our team to focus on bigger issues. A total game-changer.', stars: 5 },
+    { name: 'Jessica T.', role: '  Aura Studios', message: 'I\'ve never worked with a team that understood our "vibe" so deeply. The app they delivered is not just functional, it\'s a work of art that our users absolutely love.', stars: 5 },
+    { name: 'David R.', role: '  DataFlow', message: 'Professional, efficient, and highly skilled. The ProbSolv team delivered our project on time and exceeded all our expectations. We will definitely be working with them again.', stars: 5 },
 ];
 
 export const blogPosts: Post[] = [
@@ -274,7 +274,7 @@ export const blogPosts: Post[] = [
         id: 'why-vibe-matters',
         title: 'Beyond the Pixels: Why "Vibe" is the Most Underrated Metric in App Development',
         author: 'Alex Chen',
-        date: 'October 26, 2023',
+        date: 'October 26, 2025',
         category: 'Vibe Coding Apps',
         image: '/images/blog/why-vibe-matters.jpg',
         excerpt: 'In a saturated app market, functionality is just the ticket to entry. The real differentiator? Vibe. We explore how aesthetic-driven design and micro-interactions create memorable experiences that build lasting brand loyalty.',
@@ -314,9 +314,9 @@ export const blogPosts: Post[] = [
     },
     {
         id: 'future-of-web',
-        title: 'Is Your Website Ready for 2024? 5 Tech Trends You Can\'t Ignore',
+        title: 'Is Your Website Ready for 2026? 5 Tech Trends You Can\'t Ignore',
         author: 'David Chen',
-        date: 'October 18, 2023',
+        date: 'October 18, 2025',
         category: 'Web Development',
         image: '/images/blog/future-of-web.jpg',
         excerpt: 'The web is evolving faster than ever. From server-side rendering to the rise of edge computing, we cover the essential web development trends that will define the next year and how to leverage them for a faster, more secure online presence.',
@@ -339,8 +339,8 @@ export const jobOpenings: Job[] = [
         id: 'frontend-engineer',
         title: 'Senior Frontend Engineer',
         location: 'Remote',
-        type: 'Full-time',
-        description: 'We are looking for a passionate Senior Frontend Engineer to build beautiful, high-performance user interfaces. You will work with modern technologies to create aesthetic-driven apps and websites that our clients and their users love.',
+        type: 'time-varies',
+        description: 'We are looking for a passionate Frontend Engineer to build beautiful, high-performance user interfaces. You will work with modern technologies to create aesthetic-driven apps and websites that our clients and their users love.',
         responsibilities: [
             'Develop and maintain user-facing features using React and TypeScript.',
             'Collaborate with UI/UX designers to translate wireframes into high-quality code.',
@@ -349,8 +349,8 @@ export const jobOpenings: Job[] = [
             'Mentor junior developers and contribute to our team\'s best practices.'
         ],
         qualifications: [
-            '5+ years of professional experience in frontend development.',
-            'Expertise in React, TypeScript, HTML5, and CSS3.',
+            '2+ years of professional experience in frontend development.',
+            'Expertise in React,Vite, TypeScript, HTML5, and CSS3.',
             'Strong understanding of UI/UX design principles.',
             'Experience with performance optimization techniques.',
             'Excellent problem-solving and communication skills.'
@@ -360,7 +360,7 @@ export const jobOpenings: Job[] = [
         id: 'ai-engineer',
         title: 'AI/ML Engineer',
         location: 'Remote',
-        type: 'Full-time',
+        type: 'time-varies',
         description: 'Join our AI team to build intelligent automation solutions that solve real-world business problems. You will design, develop, and deploy machine learning models and AI-powered systems for our diverse range of clients.',
         responsibilities: [
             'Design and implement machine learning models for tasks like NLP, computer vision, and predictive analytics.',
@@ -370,10 +370,10 @@ export const jobOpenings: Job[] = [
             'Stay up-to-date with the latest advancements in AI and machine learning.'
         ],
         qualifications: [
-            '3+ years of experience in a similar AI/ML role.',
-            'Proficiency in Python and machine learning frameworks (e.g., TensorFlow, PyTorch).',
+            'Understanding of AI automation,chatbots,training ai . ',
+            'Proficiency in Python and machine learning frameworks (e.g., TensorFlow, PyTorch (optional).',
             'Experience with cloud platforms (GCP, AWS, Azure).',
-            'Strong background in algorithms, data structures, and statistical modeling.',
+            'Basic understanding of algorithms, data structures, and statistical modeling.',
             'Ability to communicate complex technical concepts to non-technical stakeholders.'
         ]
     },
@@ -382,7 +382,7 @@ export const jobOpenings: Job[] = [
         title: 'UI/UX "Vibe" Designer',
         location: 'Remote',
         type: 'Contract',
-        description: 'Are you obsessed with creating digital experiences that feel as good as they look? We\'re seeking a UI/UX Designer who specializes in "vibe." You will be responsible for creating the aesthetic vision for our "Vibe Coding Apps," focusing on emotional connection and brand identity.',
+        description: 'Are you obsessed with creating digital experiences that feel as good as they look? We\'re seeking a UI/UX Designer who specializes in "vibe." You will be responsible for creating the aesthetic vision for our "Vibe Coded Apps," focusing on emotional connection and brand identity.',
         responsibilities: [
             'Create wireframes, storyboards, user flows, and site maps.',
             'Design visually stunning and intuitive user interfaces.',
@@ -403,34 +403,34 @@ export const jobOpenings: Job[] = [
 export const pricingTiers: PricingTier[] = [
   {
     name: 'Starter Website',
-    price: '$400',
-    originalPrice: '$2,000',
-    discount: '80% OFF (First 5 Spots)',
-    description: 'Perfect for startups needing a professional, high-converting online presence quickly.',
+    price: '$100',
+    originalPrice: '$499',
+    discount: '85% OFF (79 spots remaining)',
+    description: 'Perfect for startups needing a professional, high-converting online presence in digitale era.',
     features: [
-      'Custom Landing Page',
+      'Custom 5 pages website ',
       'Responsive Design',
       'Contact Form & CMS',
-      'Basic SEO Setup',
-      '2 Rounds of Revisions',
+      'Strong SEO Setup',
+      '5 Rounds of Revisions',
     ],
-    delivery: '2-3 Weeks',
+    delivery: '1-2 Weeks',
     cta: 'Start Project'
   },
   {
     name: 'Growth Website',
-    price: '$1,500',
-    originalPrice: '$7,500',
-    discount: '80% OFF (First 3 Spots)',
+    price: '$1,000',
+    originalPrice: '$170',
+    discount: '83% OFF (49 spots remaining)',
     description: 'Ideal for growing businesses ready to scale with a multi-page, feature-rich website.',
     features: [
       'Up to 10 Custom Pages',
       'Advanced CMS Integration',
-      'Blog & Portfolio Setup',
+      'Blog, chatbot & Portfolio Setup',
       'Analytics & SEO Tools',
-      '4 Rounds of Revisions',
+      '8 Rounds of Revisions',
     ],
-    delivery: '4-6 Weeks',
+    delivery: '2-4 Weeks',
     cta: 'Start Project',
     popular: true,
   },
