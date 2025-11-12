@@ -54,7 +54,7 @@ const HomePage: React.FC<HomePageProps> = ({ setPage }) => {
   const featuredServices = serviceDetails.slice(0, 3);
 
   const credibilityItems = [
-    { icon: ZapIcon, text: "Fast Delivery" },
+    { icon: ZapIcon, text: "Fast Delivery " },
     { icon: SparklesIcon, text: "Modern Design Standards" },
     { icon: ShieldCheckIcon, text: "Secure Tech" },
     { icon: AIIcon, text: "AI-Powered Systems" }
@@ -107,7 +107,7 @@ const HomePage: React.FC<HomePageProps> = ({ setPage }) => {
           </div>
           <div className="animate-fade-in-up" style={{ animationDelay: '500ms', opacity: 0 }}>
             <h3 className="mt-6 max-w-3xl mx-auto text-xl sm:text-2xl md:text-3xl text-subtext_light dark:text-gray-300 drop-shadow-lg">
-              We Build Digital Engines That Grow Your Business—<span className="font-bold text-text_light dark:text-white">Automatically</span>.
+              Scalable Intelligence for Modern Businesses.—<span className="font-bold text-text_light dark:text-white">Effortlessly</span>.
             </h3>
           </div>
           <div className="animate-fade-in-up mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" style={{ animationDelay: '600ms', opacity: 0 }}>
@@ -115,13 +115,13 @@ const HomePage: React.FC<HomePageProps> = ({ setPage }) => {
               onClick={() => setPage('Contact')}
               className="px-5 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base bg-primary text-white font-semibold rounded-lg hover:bg-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-primary/30 w-full sm:w-auto"
             >
-              Start Your Project
+              Launch Your System
             </button>
             <button
-              onClick={() => setPage('Portfolio')}
+              onClick={() => setPage('Services')}
               className="px-5 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base bg-surface_light/80 dark:bg-surface_dark/80 backdrop-blur-sm text-text_light dark:text-text_dark font-semibold rounded-lg hover:bg-surface_light dark:hover:bg-surface_dark transition-all duration-300 transform hover:scale-105 w-full sm:w-auto"
             >
-              View Portfolio
+              What We Offer
             </button>
           </div>
         </div>
