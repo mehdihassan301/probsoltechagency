@@ -402,7 +402,7 @@ export const jobOpenings: Job[] = [
 
 export const pricingTiers: PricingTier[] = [
   {
-    name: 'Starter Website',
+    name: 'Starter',
     price: '$100',
     originalPrice: '$499',
     discount: '85% OFF (79 spots remaining)',
@@ -418,11 +418,11 @@ export const pricingTiers: PricingTier[] = [
     cta: 'Start Project'
   },
   {
-    name: 'Growth Website',
+    name: 'Growth',
     price: '$170',
     originalPrice: '$999',
     discount: '83% OFF (29 spots remaining)',
-    description: 'Ideal for growing businesses ready to scale with a multi-page, feature-rich website.',
+    description: 'Ideal for growing businesses ready to scale with a multi-page, feature-rich system.',
     features: [
       'Up to 10 Custom Pages',
       'Advanced CMS Integration',
