@@ -23,9 +23,12 @@ const BlogPostPage: React.FC<BlogPostPageProps> = ({ post, setPage }) => {
   return (
     <div className="pt-20 sm:pt-24 pb-16 sm:pb-20">
       {/* Hero */}
-      <section className="relative h-80 sm:h-96 flex items-center justify-center text-center">
+      <section className="relative h-80 sm:h-96 flex items-center justify-center text-center overflow-hidden">
+        <div className="absolute inset-0">
+            <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-white/50 dark:bg-black/60"></div>
+        </div>
         <ParticleBackground type="dots" />
-        <div className="absolute inset-0 bg-bg_light/50 dark:bg-black/60"></div>
         <div className="relative z-10 container mx-auto px-4">
           <p className="text-primary dark:text-accent font-semibold mb-2 drop-shadow-lg">{post.category}</p>
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold max-w-4xl mx-auto drop-shadow-lg text-text_light dark:text-white">{post.title}</h1>
