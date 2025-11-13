@@ -85,7 +85,6 @@ const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ item, setPage }) => {
                   <div className="pb-8 flex-1">
                     <h3 className="font-heading mb-2 text-xl font-bold text-primary dark:text-accent">{step.title}</h3>
                     <p className="text-subtext_light dark:text-subtext_dark">{step.description}</p>
-                    <img src={step.image} alt={step.title} className="mt-4 w-full h-auto object-cover rounded-lg shadow-lg" />
                   </div>
                 </div>
               ))}
