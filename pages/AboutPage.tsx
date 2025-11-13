@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     question: 'How much does a typical project cost?',
-    answer: 'Project costs vary depending on the scope, complexity, and technologies involved. Our starter websites begin around $2,500, while more complex apps and AI automations are custom-quoted. We provide detailed, transparent proposals after our initial consultation. Check out our Pricing page for more details.',
+    answer: 'Project costs vary depending on the scope, complexity, and technologies involved. Our plan begin around $100-499, while more complex apps and AI automations are custom-quoted. We provide detailed, transparent proposals after our initial consultation. Check out our Pricing page for more details.',
   },
   {
     question: 'How long will it take to build my website/app?',
