@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDownIcon, SparklesIcon, BrainIcon, UsersIcon, SpinnerIcon } from '../components/Icons';
-import AnimatedCardBackground from '../components/AnimatedCardBackground';
+import { ChevronDownIcon, SparklesIcon, BrainIcon, UsersIcon, SpinnerIcon, ZapIcon } from './Icons';
+import AnimatedCardBackground from './AnimatedCardBackground';
 
 const faqs = [
   {
@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     question: 'How much does a typical project cost?',
-    answer: 'Project costs vary depending on the scope, complexity, and technologies involved. Our plan begin around $100-499, while more complex apps and AI automations are custom-quoted. We provide detailed, transparent proposals after our initial consultation. Check out our Pricing page for more details.',
+    answer: 'Project costs vary depending on the scope, complexity, and technologies involved. Our starter websites begin around $2,500, while more complex apps and AI automations are custom-quoted. We provide detailed, transparent proposals after our initial consultation. Check out our Pricing page for more details.',
   },
   {
     question: 'How long will it take to build my website/app?',
@@ -55,7 +55,7 @@ const faqs = [
     question: 'How do you handle intellectual property and NDAs?',
     answer: 'Client confidentiality and IP protection are paramount. We are happy to sign a Non-Disclosure Agreement (NDA) before any sensitive information is shared. Upon project completion and final payment, all intellectual property, including source code and designs we create for you, is fully transferred to you.',
   },
-    {
+  {
     question: 'What is your approach to SEO?',
     answer: 'SEO is foundational to our web development process. We build sites with clean, semantic HTML, ensure fast loading speeds, mobile-first design, and implement on-page SEO best practices (meta tags, alt text, structured data). For ongoing SEO, we offer dedicated packages to help you rank higher and drive organic traffic.'
   },
@@ -74,6 +74,46 @@ const faqs = [
   {
     question: 'What makes ProbSolv different from other agencies?',
     answer: 'We believe our key differentiator is our "Vibe Coding" philosophy combined with our expertise in AI automation. We don\'t just build functional products; we create aesthetic, memorable experiences that resonate with users. Furthermore, our focus on automating business processes means we deliver solutions that not only look great but also provide a tangible, long-term ROI by increasing efficiency.'
+  },
+  {
+    question: 'How do you handle project management and communication?',
+    answer: 'We prioritize transparent and efficient communication. Each project is assigned a dedicated project manager and we use tools like Slack for daily updates and Trello/Jira for progress tracking. We also schedule regular weekly or bi-weekly video calls to demo progress, gather feedback, and ensure we\'re always aligned with your vision.',
+  },
+  {
+    question: 'What if I\'m not satisfied with the final product?',
+    answer: 'Our iterative process with multiple feedback loops is designed to prevent this. However, your complete satisfaction is our goal. We offer a set number of revision rounds after the final delivery to address any minor adjustments. For any larger concerns, we will work with you to find a solution, backed by our commitment to building long-term partnerships.',
+  },
+  {
+    question: 'Do you have experience in my specific industry?',
+    answer: 'We have had the pleasure of working with clients across a diverse range of industries, including e-commerce, SaaS, fintech, and lifestyle brands. While we may not be experts in every niche, our strength lies in our ability to quickly learn the intricacies of your business and apply our technical and design expertise to solve your unique challenges.',
+  },
+  {
+    question: 'How do you test your applications to ensure quality?',
+    answer: 'Quality assurance is a critical part of our process. Our dedicated QA team performs rigorous testing, including functional testing, usability testing, performance testing, and cross-browser/cross-device compatibility checks. We also utilize automated testing where appropriate to ensure a robust and bug-free final product.',
+  },
+  {
+    question: 'Who will be working on my project?',
+    answer: 'Your project will be handled by our in-house team of expert designers, developers, and project managers. We don\'t outsource our core work. Based on your project\'s needs, we will assemble a dedicated team with the right skills to bring your vision to life, ensuring you have direct communication with the people building your product.',
+  },
+  {
+    question: 'Do you work with international clients?',
+    answer: 'Yes, we are a fully remote agency and have successfully collaborated with clients from all over the world. We are adept at managing projects across different time zones to ensure smooth communication and timely delivery.',
+  },
+  {
+    question: 'Can you help with a project that is already in progress?',
+    answer: 'We can certainly help! We would start with a comprehensive audit of your existing project to understand the current state, codebase, and challenges. From there, we can propose a plan to take over development, refactor where necessary, and guide the project to a successful launch.',
+  },
+  {
+    question: 'What is the payment structure for projects?',
+    answer: 'For most projects, we follow a milestone-based payment structure. Typically, this involves an upfront deposit to begin work (usually 30-50%), followed by payments upon completion of key milestones (e.g., design approval, feature completion). The final payment is due upon project completion and before the final handover.',
+  },
+  {
+    question: 'How do you determine the "vibe" for a Vibe Coding App?',
+    answer: 'The "vibe" is determined through a collaborative Vibe Discovery session. We immerse ourselves in your brand identity, target audience, and market positioning. We use mood boards, style scapes, and workshops to define the desired emotional response and aesthetic, ensuring the final app is a true extension of your brand.',
+  },
+  {
+    question: 'What if I need features not in your pricing packages?',
+    answer: 'Our pricing packages are designed as starting points. We understand every project is unique. We are happy to create a custom proposal tailored to your specific feature requirements, complexity, and long-term goals. Just get in touch for a custom quote.',
   }
 ];
 
@@ -150,6 +190,7 @@ const AboutPage: React.FC = () => {
   const missionRef = useRef<HTMLDivElement>(null);
   const philosophyRef = useRef<HTMLDivElement>(null);
   const approachRef = useRef<HTMLElement>(null);
+  const whyChooseUsRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement | null>(null);
   const faqRef = useRef<HTMLElement>(null);
   
@@ -157,6 +198,7 @@ const AboutPage: React.FC = () => {
   const missionInView = useAnimateOnScroll(missionRef);
   const philosophyInView = useAnimateOnScroll(philosophyRef);
   const approachInView = useAnimateOnScroll(approachRef);
+  const whyChooseUsInView = useAnimateOnScroll(whyChooseUsRef);
   const statsInView = useAnimateOnScroll(statsRef);
   const faqInView = useAnimateOnScroll(faqRef);
 
@@ -188,7 +230,7 @@ const AboutPage: React.FC = () => {
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
-  
+
   const handleQuestionSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (question.trim()) {
@@ -226,17 +268,24 @@ const AboutPage: React.FC = () => {
     { icon: UsersIcon, title: 'True Partnership', description: 'We work as an extension of your team, fostering transparent communication and collaboration to achieve shared success.' },
   ];
 
+  const whyChooseUsItems = [
+    { icon: SparklesIcon, title: 'The Vibe + AI Edge', description: "We master both aesthetic-driven 'Vibe Coding' and pragmatic AI automation. We don't just build products; we create memorable, intelligent experiences, giving you a dual advantage." },
+    { icon: UsersIcon, title: 'Deep Partnership, Not a Vendor', description: "We integrate with your team as a true strategic partner. Your success is our success. We go beyond tickets and tasks to understand your business and proactively find opportunities for growth." },
+    { icon: ZapIcon, title: 'Future-Proof by Design', description: "Technology changes fast. We build with a forward-thinking, scalable architecture and modern tech stack, ensuring your digital assets are resilient, adaptable, and ready for tomorrow." },
+    { icon: BrainIcon, title: 'Tangible ROI is the Goal', description: "Our solutions are designed to deliver a clear return on investment. From AI chatbots that cut support costs to websites engineered for conversion, every line of code aims to improve your bottom line." },
+  ];
+
   const statsCards = [
     { end: 100, suffix: "+", label: "Projects Launched" },
     { end: 50, suffix: "+", label: "Happy Clients" },
     { end: 1, suffix: "M+", label: "End Users Impacted" },
   ];
   
-  const displayedFaqs = showAllFaqs ? faqs : faqs.slice(0, 4);
+  const displayedFaqs = showAllFaqs ? faqs : faqs.slice(0, 5);
 
   return (
     <div className="pt-24 sm:pt-32 pb-16 sm:pb-20 container mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref={titleRef} className={`text-center max-w-3xl mx-auto mb-16 ${titleInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
+      <div ref={titleRef} className={`text-center max-w-3xl mx-auto mb-16 will-change-[transform,opacity] ${titleInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
         <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-text_light dark:text-text_dark">About ProbSolv</h1>
         <p className="mt-4 text-base md:text-lg text-subtext_light dark:text-subtext_dark">
           We are a team of passionate designers, developers, and strategists dedicated to building the future of digital experiences.
@@ -245,21 +294,21 @@ const AboutPage: React.FC = () => {
 
       <div className="max-w-4xl mx-auto">
         <div className="space-y-12">
-            <div ref={missionRef} className={missionInView ? 'animate-fade-in-up' : 'opacity-0'}>
-              <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-4 text-center md:text-left">Our Mission</h2>
-              <p className="text-base md:text-lg lg:text-xl text-subtext_light dark:text-subtext_dark leading-relaxed text-center md:text-left">
+            <div ref={missionRef} className={`will-change-[transform,opacity] ${missionInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
+              <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-4">Our Mission</h2>
+              <p className="text-base md:text-lg lg:text-xl text-subtext_light dark:text-subtext_dark leading-relaxed">
                   Our mission is to empower businesses by creating intelligent, beautiful, and automated digital systems. We believe that smart technology and great design are the keys to unlocking sustainable growth and competitive advantage in any industry.
               </p>
             </div>
 
-            <div ref={philosophyRef} className={philosophyInView ? 'animate-fade-in-up' : 'opacity-0'}>
-              <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-4 text-center md:text-left">Our Philosophy</h2>
-              <p className="text-base md:text-lg lg:text-xl text-subtext_light dark:text-subtext_dark leading-relaxed text-center md:text-left">
+            <div ref={philosophyRef} className={`will-change-[transform,opacity] ${philosophyInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
+              <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-4">Our Philosophy</h2>
+              <p className="text-base md:text-lg lg:text-xl text-subtext_light dark:text-subtext_dark leading-relaxed">
                   We operate on three core principles: <strong className="text-primary dark:text-accent">Problem-First Thinking</strong>, where we deeply understand the challenge before building the solution; <strong className="text-primary dark:text-accent">Aesthetic Excellence</strong>, because we believe great products should feel amazing to use; and <strong className="text-primary dark:text-accent">Partnership Over Process</strong>, focusing on collaborative relationships with our clients to achieve shared goals.
               </p>
             </div>
             
-            <section ref={approachRef} className={`py-8 ${approachInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
+            <section ref={approachRef} className={`py-8 will-change-[transform,opacity] ${approachInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
                 <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-12 text-center">Our Approach</h2>
                 <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto text-center">
                     {approachItems.map((item, index) => (
@@ -274,11 +323,28 @@ const AboutPage: React.FC = () => {
                 </div>
             </section>
 
+            <section ref={whyChooseUsRef} className={`py-12 bg-bg_light dark:bg-surface_dark rounded-xl will-change-[transform,opacity] ${whyChooseUsInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-12 text-center">Why Choose ProbSolv?</h2>
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto px-6">
+                    {whyChooseUsItems.map((item, index) => (
+                        <div key={item.title} className="flex items-start gap-4">
+                            <div className="flex-shrink-0 w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mt-1">
+                                <item.icon className="w-7 h-7" />
+                            </div>
+                            <div>
+                                <h3 className="font-heading text-xl font-bold text-text_light dark:text-text_dark mb-1">{item.title}</h3>
+                                <p className="text-subtext_light dark:text-subtext_dark">{item.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
             <div ref={statsRef} className="grid md:grid-cols-3 gap-8 text-center pt-8">
                {statsCards.map((stat, index) => (
                   <div
                     key={stat.label}
-                    className={`relative bg-bg_light/90 dark:bg-surface_dark/90 p-6 rounded-xl overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-accent/20 ${statsInView ? 'animate-fade-in-up' : 'opacity-0'}`}
+                    className={`relative bg-bg_light/90 dark:bg-surface_dark/90 p-6 rounded-xl overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-2 hover:scale-105 hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-accent/20 will-change-[transform,opacity] ${statsInView ? 'animate-fade-in-up' : 'opacity-0'}`}
                     style={{ animationDelay: `${index * 150}ms` }}
                   >
                     <AnimatedCardBackground />
@@ -295,15 +361,14 @@ const AboutPage: React.FC = () => {
         
         {/* FAQ Section */}
         <section ref={faqRef} className="mt-24">
-            <h2 className={`font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark text-center mb-12 ${faqInView ? 'animate-fade-in-up' : 'opacity-0'}`}>Frequently Asked Questions</h2>
+            <h2 className={`font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark text-center mb-12 will-change-[transform,opacity] ${faqInView ? 'animate-fade-in-up' : 'opacity-0'}`}>Frequently Asked Questions</h2>
             <div className="space-y-4">
               {displayedFaqs.map((faq, index) => (
                 <div 
                   key={index} 
-                  // FIX: The ref callback should not return a value. Wrapped assignment in braces.
                   ref={el => { faqItemRefs.current[index] = el; }} 
                   data-index={index}
-                  className={`border border-border_light dark:border-border_dark rounded-lg bg-surface_light dark:bg-surface_dark transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-primary/15 dark:hover:shadow-accent/15 hover:-translate-y-1 hover:scale-[1.01] focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 dark:focus-within:ring-offset-bg_dark ${visibleFaqs.has(index) ? 'animate-fade-in-up' : 'opacity-0'}`}
+                  className={`border border-border_light dark:border-border_dark rounded-lg bg-surface_light dark:bg-surface_dark transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-primary/15 dark:hover:shadow-accent/15 hover:-translate-y-1 hover:scale-[1.02] focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 dark:focus-within:ring-offset-bg_dark will-change-[transform,opacity] ${visibleFaqs.has(index) ? 'animate-fade-in-up' : 'opacity-0'}`}
                 >
                   <button
                     onClick={() => toggleFaq(index)}
@@ -328,7 +393,7 @@ const AboutPage: React.FC = () => {
                 >
                     {showAllFaqs ? 'Show Less' : `See All ${faqs.length} FAQs`}
                 </button>
-                 <button
+                <button
                     onClick={() => {
                       setIsAskFormVisible(!isAskFormVisible);
                       if (formSubmitted) {
@@ -340,7 +405,7 @@ const AboutPage: React.FC = () => {
                     {isAskFormVisible ? 'Nevermind' : 'Ask a Question'}
                 </button>
             </div>
-            
+
             {isAskFormVisible && (
               <div className="mt-12 max-w-2xl mx-auto animate-fade-in-up">
                 {formSubmitted ? (
@@ -353,9 +418,9 @@ const AboutPage: React.FC = () => {
                     <h3 className="font-heading text-2xl font-bold text-text_light dark:text-text_dark text-center mb-6">Have a Different Question?</h3>
                     <form onSubmit={handleQuestionSubmit} className="space-y-4" noValidate>
                       <div>
-                        <label htmlFor="question-form" className="sr-only">Your Question</label>
+                        <label htmlFor="question" className="sr-only">Your Question</label>
                         <textarea
-                          id="question-form"
+                          id="question"
                           name="question"
                           placeholder="Type your question here..."
                           rows={4}
@@ -388,3 +453,4 @@ const AboutPage: React.FC = () => {
 };
 
 export default AboutPage;
+
