@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDownIcon, SparklesIcon, BrainIcon, UsersIcon, SpinnerIcon } from './Icons';
+import { ChevronDownIcon, SparklesIcon, BrainIcon, UsersIcon, SpinnerIcon, ZapIcon } from './Icons';
 import AnimatedCardBackground from './AnimatedCardBackground';
 
 const faqs = [
@@ -190,6 +190,7 @@ const AboutPage: React.FC = () => {
   const missionRef = useRef<HTMLDivElement>(null);
   const philosophyRef = useRef<HTMLDivElement>(null);
   const approachRef = useRef<HTMLElement>(null);
+  const whyChooseUsRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement | null>(null);
   const faqRef = useRef<HTMLElement>(null);
   
@@ -197,6 +198,7 @@ const AboutPage: React.FC = () => {
   const missionInView = useAnimateOnScroll(missionRef);
   const philosophyInView = useAnimateOnScroll(philosophyRef);
   const approachInView = useAnimateOnScroll(approachRef);
+  const whyChooseUsInView = useAnimateOnScroll(whyChooseUsRef);
   const statsInView = useAnimateOnScroll(statsRef);
   const faqInView = useAnimateOnScroll(faqRef);
 
@@ -266,6 +268,13 @@ const AboutPage: React.FC = () => {
     { icon: UsersIcon, title: 'True Partnership', description: 'We work as an extension of your team, fostering transparent communication and collaboration to achieve shared success.' },
   ];
 
+  const whyChooseUsItems = [
+    { icon: SparklesIcon, title: 'The Vibe + AI Edge', description: "We master both aesthetic-driven 'Vibe Coding' and pragmatic AI automation. We don't just build products; we create memorable, intelligent experiences, giving you a dual advantage." },
+    { icon: UsersIcon, title: 'Deep Partnership, Not a Vendor', description: "We integrate with your team as a true strategic partner. Your success is our success. We go beyond tickets and tasks to understand your business and proactively find opportunities for growth." },
+    { icon: ZapIcon, title: 'Future-Proof by Design', description: "Technology changes fast. We build with a forward-thinking, scalable architecture and modern tech stack, ensuring your digital assets are resilient, adaptable, and ready for tomorrow." },
+    { icon: BrainIcon, title: 'Tangible ROI is the Goal', description: "Our solutions are designed to deliver a clear return on investment. From AI chatbots that cut support costs to websites engineered for conversion, every line of code aims to improve your bottom line." },
+  ];
+
   const statsCards = [
     { end: 100, suffix: "+", label: "Projects Launched" },
     { end: 50, suffix: "+", label: "Happy Clients" },
@@ -309,6 +318,23 @@ const AboutPage: React.FC = () => {
                             </div>
                             <h3 className="font-heading text-xl font-bold text-primary dark:text-accent mb-2">{item.title}</h3>
                             <p className="text-subtext_light dark:text-subtext_dark">{item.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section ref={whyChooseUsRef} className={`py-12 bg-bg_light dark:bg-surface_dark rounded-xl will-change-[transform,opacity] ${whyChooseUsInView ? 'animate-fade-in-up' : 'opacity-0'}`}>
+                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-12 text-center">Why Choose ProbSolv?</h2>
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto px-6">
+                    {whyChooseUsItems.map((item, index) => (
+                        <div key={item.title} className="flex items-start gap-4">
+                            <div className="flex-shrink-0 w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mt-1">
+                                <item.icon className="w-7 h-7" />
+                            </div>
+                            <div>
+                                <h3 className="font-heading text-xl font-bold text-text_light dark:text-text_dark mb-1">{item.title}</h3>
+                                <p className="text-subtext_light dark:text-subtext_dark">{item.description}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
