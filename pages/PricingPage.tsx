@@ -238,6 +238,22 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
 
   const [activeForm, setActiveForm] = useState<'support' | 'collab' | null>(null);
   const formSectionRef = useRef<HTMLElement>(null);
+  
+  const [currency, setCurrency] = useState<'USD' | 'PKR'>('USD');
+  
+  const PKR_RATE = 280; // Approximate exchange rate
+  const convertToPkr = (price: string) => {
+    if (!price || price.toLowerCase().includes('contact')) {
+      return price;
+    }
+    const numericPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
+    if (isNaN(numericPrice)) {
+      return price;
+    }
+    const pkrPrice = Math.round(numericPrice * PKR_RATE);
+    // Format for Pakistani currency style
+    return `Rs ${pkrPrice.toLocaleString('en-PK')}`;
+  };
 
 
   useEffect(() => {
@@ -336,72 +352,104 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
           Choose a plan that scales with your business needs. Transparent pricing for exceptional value.
         </p>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {pricingTiers.map((tier, index) => (
-          <div 
-            key={tier.name} 
-            ref={el => { tierRefs.current[index] = el; }}
-            data-index={index}
-            className={`relative rounded-xl p-8 flex flex-col transition-all duration-500 ease-in-out transform hover:scale-[1.03] hover:-translate-y-1 overflow-hidden will-change-[transform,opacity] ${visibleTiers.has(index) ? 'animate-fade-in-up' : 'opacity-0'} ${
-            tier.popular 
-              ? 'border-2 border-primary bg-surface_light/90 dark:bg-surface_dark/90 shadow-2xl shadow-primary/20 dark:shadow-accent/10' 
-              : 'border border-border_light dark:border-border_dark bg-surface_light/90 dark:bg-surface_dark/90 hover:border-primary dark:hover:border-accent hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-accent/20'
-            }`}
-            style={{ animationDelay: `${index * 150}ms` }}
-          >
-            <AnimatedCardBackground />
-            {tier.popular && (
-              <div className="absolute top-0 right-8 -mt-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase z-20">Most Popular</div>
-            )}
-            <div className="relative z-10 flex flex-col flex-grow">
-              <h2 className="font-heading text-2xl font-bold text-text_light dark:text-text_dark">{tier.name}</h2>
-              
-              {/* Pricing Block */}
-              {tier.originalPrice ? (
-                <>
-                  <div className="mt-4 flex items-baseline gap-x-2">
-                    <span className="text-2xl font-medium text-subtext_light/80 dark:text-subtext_dark/80 line-through decoration-2">
-                      {tier.originalPrice}
-                    </span>
-                    <p className="font-heading text-5xl font-extrabold text-text_light dark:text-text_dark">{tier.price}</p>
-                  </div>
-                  {tier.discount && (
-                    <div className="mt-2">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400">
-                            {tier.discount}
-                        </span>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <p className="font-heading text-5xl font-extrabold text-text_light dark:text-text_dark mt-4">{tier.price}</p>
-              )}
 
-              <p className="text-subtext_light dark:text-subtext_dark mt-4 min-h-[60px]">{tier.description}</p>
-              <div className="border-t border-border_light dark:border-border_dark my-6"></div>
-              <ul className="space-y-4 text-text_light dark:text-text_dark flex-grow">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center">
-                    <svg className="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <div className="border-t border-border_light dark:border-border_dark my-6"></div>
-              <p className="text-sm text-subtext_light dark:text-subtext_dark mb-6">Delivery: <span className="font-semibold text-text_light dark:text-text_dark">{tier.delivery}</span></p>
-              <button
-                onClick={() => setPage('ProjectBrief', tier.name)}
-                className={`w-full py-2.5 font-semibold text-sm rounded-lg transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface_dark ${
-                tier.popular ? 'bg-primary text-white hover:bg-purple-600 focus-visible:ring-white' : 'bg-border_light text-text_light hover:bg-gray-300 dark:bg-border_dark dark:text-text_dark dark:hover:bg-border_dark/50 focus-visible:ring-primary'
-              }`}>
-                {tier.cta}
-              </button>
-            </div>
-          </div>
-        ))}
+      <div className="flex justify-center items-center mb-12 gap-4">
+        <span className={`text-sm font-semibold transition-colors ${currency === 'USD' ? 'text-text_light dark:text-text_dark' : 'text-subtext_light dark:text-subtext_dark'}`}>USD</span>
+        <button
+            onClick={() => setCurrency(c => c === 'USD' ? 'PKR' : 'USD')}
+            className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-bg_dark ${currency === 'PKR' ? 'bg-primary' : 'bg-border_light dark:bg-border_dark'}`}
+            aria-label="Toggle currency between USD and PKR"
+            aria-pressed={currency === 'PKR'}
+        >
+            <span
+                aria-hidden="true"
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${currency === 'PKR' ? 'translate-x-5' : 'translate-x-0'}`}
+            />
+        </button>
+        <span className={`text-sm font-semibold transition-colors ${currency === 'PKR' ? 'text-text_light dark:text-text_dark' : 'text-subtext_light dark:text-subtext_dark'}`}>PKR</span>
       </div>
 
-      <div className="mt-16 text-center">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {pricingTiers.map((tier, index) => {
+          const displayPrice = currency === 'PKR' ? convertToPkr(tier.price) : tier.price;
+          const displayOriginalPrice = tier.originalPrice ? (currency === 'PKR' ? convertToPkr(tier.originalPrice) : tier.originalPrice) : null;
+          return (
+            <div 
+              key={tier.name} 
+              ref={el => { tierRefs.current[index] = el; }}
+              data-index={index}
+              className={`relative rounded-xl p-8 flex flex-col transition-all duration-500 ease-in-out transform hover:scale-[1.03] hover:-translate-y-1 overflow-hidden will-change-[transform,opacity] ${visibleTiers.has(index) ? 'animate-fade-in-up' : 'opacity-0'} ${
+              tier.popular 
+                ? 'border-2 border-primary bg-surface_light/90 dark:bg-surface_dark/90 shadow-2xl shadow-primary/20 dark:shadow-accent/10' 
+                : 'border border-border_light dark:border-border_dark bg-surface_light/90 dark:bg-surface_dark/90 hover:border-primary dark:hover:border-accent hover:shadow-xl hover:shadow-primary/20 dark:hover:shadow-accent/20'
+              }`}
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <AnimatedCardBackground />
+              {tier.popular && (
+                <div className="absolute top-0 right-8 -mt-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase z-20">Most Popular</div>
+              )}
+              <div className="relative z-10 flex flex-col flex-grow">
+                <h2 className="font-heading text-2xl font-bold text-text_light dark:text-text_dark">{tier.name}</h2>
+                
+                <div className="mt-4 min-h-[120px]">
+                  {tier.price.toLowerCase().includes('contact') ? (
+                    <p className="font-heading text-5xl font-extrabold text-text_light dark:text-text_dark">{tier.price}</p>
+                  ) : tier.originalPrice ? (
+                    <>
+                      <div className="flex items-baseline gap-x-2">
+                        <span className={`font-medium text-subtext_light/80 dark:text-subtext_dark/80 line-through decoration-2 ${currency === 'PKR' ? 'text-xl' : 'text-2xl'}`}>
+                          {displayOriginalPrice}
+                        </span>
+                        <p className={`font-heading font-extrabold text-text_light dark:text-text_dark ${currency === 'PKR' ? 'text-4xl' : 'text-5xl'}`}>
+                          {displayPrice}
+                        </p>
+                      </div>
+                      {tier.discount && (
+                        <div className="mt-2">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400">
+                                {tier.discount}
+                            </span>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <p className={`font-heading font-extrabold text-text_light dark:text-text_dark ${currency === 'PKR' ? 'text-4xl' : 'text-5xl'}`}>
+                      {displayPrice}
+                    </p>
+                  )}
+                </div>
+
+                <p className="text-subtext_light dark:text-subtext_dark mt-4 min-h-[60px]">{tier.description}</p>
+                <div className="border-t border-border_light dark:border-border_dark my-6"></div>
+                <ul className="space-y-4 text-text_light dark:text-text_dark flex-grow">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex items-center">
+                      <svg className="w-5 h-5 text-accent mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="border-t border-border_light dark:border-border_dark my-6"></div>
+                <p className="text-sm text-subtext_light dark:text-subtext_dark mb-6">Delivery: <span className="font-semibold text-text_light dark:text-text_dark">{tier.delivery}</span></p>
+                <button
+                  onClick={() => setPage('ProjectBrief', tier.name)}
+                  className={`w-full py-2.5 font-semibold text-sm rounded-lg transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface_dark ${
+                  tier.popular ? 'bg-primary text-white hover:bg-purple-600 focus-visible:ring-white' : 'bg-border_light text-text_light hover:bg-gray-300 dark:bg-border_dark dark:text-text_dark dark:hover:bg-border_dark/50 focus-visible:ring-primary'
+                }`}>
+                  {tier.cta}
+                </button>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="mt-8 text-center text-xs text-subtext_light dark:text-subtext_dark">
+        <p>* PKR prices are for estimation purposes and are subject for Pakistani natives.</p>
+      </div>
+
+      <div className="mt-8 text-center">
         <button
             onClick={() => setIsCustomFormVisible(prev => !prev)}
             className="px-6 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/10 transition-all duration-300 transform hover:scale-105"
