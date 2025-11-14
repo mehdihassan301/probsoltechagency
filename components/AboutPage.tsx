@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     question: 'How long will it take to build my website/app?',
-    answer: 'Timelines depend on the project size. A simple landing page can be ready in as little as two weeks, a standard multi-page website typically takes 4-8 weeks, and complex applications or AI integrations can take several months. We always provide a project timeline with key milestones in our proposal.',
+    answer: 'Timelines depend on the project size. A highly deigned landing page can be ready in as little as in a week, a standard multi-page website typically takes 3-4 weeks, and complex applications or AI integrations can take several weeks. We always provide a project timeline with key milestones in our proposal.',
   },
   {
     question: 'What does your 7-Day Money-Back Guarantee cover?',
@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: 'What technologies do you specialize in?',
-    answer: 'Our core stack includes modern frontend frameworks like React, Next.js, and Vue, paired with robust backend solutions. For AI, we leverage technologies like Google\'s Gemini, Dialogflow, and custom machine learning models. We are technology-agnostic in principle, always choosing the right tool for the job to ensure scalable, secure, and high-performance solutions.',
+    answer: 'Our core stack includes modern frontend frameworks like React, Next.js, and Vue, paired with robust backend solutions. For AI, we leverage technologies like Google\'s Gemini, Dialogflow,Make and custom machine learning models. We are technology-agnostic in principle, always choosing the right tool for the job to ensure scalable, secure, and high-performance solutions.',
   },
   {
     question: 'How involved do I need to be in the project?',
