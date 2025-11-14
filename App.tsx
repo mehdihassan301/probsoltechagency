@@ -21,6 +21,7 @@ import BackToTopButton from './components/BackToTopButton';
 import { serviceDetails, blogPosts, portfolioItems } from './components/constants';
 import CaseStudyPage from './pages/CaseStudyPage';
 import ProjectBriefPage from './pages/ProjectBriefPage';
+import LoadingSpinner from './components/LoadingSpinner';
 
 const App: React.FC = () => {
   const [page, setPage] = useState<Page>('Home');
@@ -123,6 +124,7 @@ const App: React.FC = () => {
 
   return (
     <div className="font-sans text-text_light dark:text-text_dark min-h-screen bg-400% bg-gradient-animated-light dark:bg-gradient-animated-dark animate-gradient-bg">
+      <LoadingSpinner isLoading={isExiting} />
       <AnimatedOrbs theme={theme} />
       <div className="relative z-10">
         <Header setPage={navigateTo} theme={theme} setTheme={setTheme} />
