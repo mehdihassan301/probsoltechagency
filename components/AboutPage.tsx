@@ -5,11 +5,11 @@ import AnimatedCardBackground from './AnimatedCardBackground';
 const faqs = [
   {
     question: 'What is your development process like?',
-    answer: 'We follow an agile methodology that starts with a deep discovery phase to understand your goals. From there, we move to UI/UX design, development sprints with regular check-ins, rigorous testing, and finally, a seamless deployment. We believe in collaboration and keep you in the loop every step of the way.',
+    answer: 'We follow an agile methodology that starts with a deep discovery phase to understand your entire system and goals. From there, we move to UI/UX design, development sprints with regular check-ins, rigorous testing, and finally, a seamless deployment. We believe in collaboration and keep you in the loop every step of the way.',
   },
   {
     question: 'How much does a typical project cost?',
-    answer: 'Project costs vary depending on the scope, complexity, and technologies involved. Our starter websites begin around $2,500, while more complex apps and AI automations are custom-quoted. We provide detailed, transparent proposals after our initial consultation. Check out our Pricing page for more details.',
+    answer: 'Project costs vary depending on the scope, complexity, and technologies involved. Our starter plan begins around $250, while more complex apps and AI automations are custom-quoted. We provide detailed, transparent proposals after our initial consultation. Check out our Pricing page for more details.',
   },
   {
     question: 'How long will it take to build my website/app?',
