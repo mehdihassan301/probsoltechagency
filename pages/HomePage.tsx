@@ -102,12 +102,12 @@ const HomePage: React.FC<HomePageProps> = ({ setPage }) => {
           </div>
           <div className="animate-fade-in-up" style={{ animationDelay: '400ms', opacity: 0 }}>
             <h2 className="mt-4 text-lg sm:text-xl md:text-2xl font-semibold text-teal-600 drop-shadow-[0_0_8px_rgba(13,148,136,0.4)] dark:text-accent dark:drop-shadow-[0_0_10px_rgba(106,235,255,0.7)] tracking-wide">
-              Web Development • Vibe Coding Apps • AI Automations
+              Web Development • Vibe Coded Apps • AI Automations
             </h2>
           </div>
           <div className="animate-fade-in-up" style={{ animationDelay: '500ms', opacity: 0 }}>
             <h3 className="mt-6 max-w-3xl mx-auto text-xl sm:text-2xl md:text-3xl text-subtext_light dark:text-gray-300 drop-shadow-lg">
-              Scalable Intelligence for Modern Businesses.—<span className="font-bold text-text_light dark:text-white">Effortlessly</span>.
+              Scalable Intelligence for Modern Businesses.<span className="font-bold text-text_light dark:text-white">Effortlessly</span>.
             </h3>
           </div>
           <div className="animate-fade-in-up mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" style={{ animationDelay: '600ms', opacity: 0 }}>
