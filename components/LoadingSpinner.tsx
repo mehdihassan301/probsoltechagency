@@ -16,7 +16,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ isLoading }) => {
       setIsComplete(false);
       
       const startTime = Date.now();
-      const duration = 700; // Animate progress over 700ms
+      const duration = 180; // Animate progress over 180ms
 
       const updateProgress = () => {
         const elapsedTime = Date.now() - startTime;
@@ -77,7 +77,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ isLoading }) => {
             cy="60"
           />
         </svg>
-        <span className={`absolute inset-0 flex items-center justify-center text-2xl font-bold text-white ${!isComplete ? 'animate-pulse-text' : ''}`}>
+        <span className={`absolute inset-0 flex items-center justify-center text-2xl font-bold text-white ${!isComplete ? 'animate-pulse-subtle' : ''}`}>
           {progress}%
         </span>
       </div>
