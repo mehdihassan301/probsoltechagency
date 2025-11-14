@@ -17,7 +17,7 @@ export const serviceDetails: Service[] = [
       { step: 'Deployment & Launch', description: 'We handle the entire deployment process for a smooth and seamless transition to a live environment.' },
     ],
     deliverables: ['Fully Responsive Website', 'Content Management System (CMS)', 'Source Code', 'SEO Foundations', 'Deployment'],
-    timeframe: '4-8 Weeks',
+    timeframe: '3-4 Weeks',
     benefits: ['Enhanced Brand Credibility', 'Increased Lead Generation', 'Improved User Engagement', 'Scalable Architecture'],
     whyUs: [
         { title: 'Modern Technology Stack', description: 'We use the latest, most reliable technologies to build websites that are fast, secure, and future-proof.' },
@@ -27,11 +27,11 @@ export const serviceDetails: Service[] = [
   },
   {
     id: 'vibe-coded',
-    title: 'Vibe Coding Apps',
+    title: 'Vibe Coded Apps',
     description: 'Unique, aesthetic-driven app development that resonates with your brand\'s core identity.',
     icon: VibeCodeIcon,
     heroImage: '/images/services/vibe-coded-hero.jpg',
-    overview: 'Vibe Coding Apps go beyond functionality. We focus on creating an emotional connection with users through bespoke design, micro-interactions, and a cohesive brand experience. These are apps that feel as good as they look.',
+    overview: 'Vibe Coded Apps go beyond functionality. We focus on creating an emotional connection with users through bespoke design, micro-interactions, and a cohesive brand experience. These are apps that feel as good as they look.',
     process: [
       { step: 'Vibe Discovery', description: 'We dive deep into your brand\'s ethos, aesthetics, and target audience to define the core "vibe".' },
       { step: 'Conceptual Design', description: 'Creation of mood boards, style scapes, and initial design concepts that capture the desired feeling.' },
@@ -40,7 +40,7 @@ export const serviceDetails: Service[] = [
       { step: 'Experience QA', description: 'We test not just for bugs, but for the overall feeling and emotional impact of the application.' },
     ],
     deliverables: ['Custom Mobile/Web App', 'Brand Style Guide', 'UI Kit', 'Interactive Prototypes', 'Source Code'],
-    timeframe: '6-12 Weeks',
+    timeframe: '4-6 Weeks',
     benefits: ['Stronger Brand Loyalty', 'Higher User Engagement Rates', 'Differentiation in Crowded Markets', 'Memorable User Experience'],
     whyUs: [
         { title: 'Aesthetic First', description: 'We believe great design and a strong vibe are non-negotiable for modern applications.' },
@@ -62,8 +62,8 @@ export const serviceDetails: Service[] = [
       { step: 'System Integration', description: 'Seamless integration of the AI solution into your current workflows, CRMs, or support platforms.' },
       { step: 'Monitoring & Optimization', description: 'We continuously monitor the AI\'s performance and optimize it for better accuracy and efficiency over time.' },
     ],
-    deliverables: ['Custom AI Chatbot/Assistant', 'Workflow Automation Scripts', 'Integration Documentation', 'Performance Dashboard', 'Support & Maintenance Plan'],
-    timeframe: '5-10 Weeks',
+    deliverables: ['Custom AI Chatbot/Assistant', 'AI Call Agents', 'Integration Documentation', 'Performance Dashboard', 'Support & Maintenance Plan'],
+    timeframe: '2-4 Weeks',
     benefits: ['24/7 Customer Support', 'Significant Cost Reduction', 'Increased Operational Efficiency', 'Data-Driven Insights'],
     whyUs: [
         { title: 'Practical AI Solutions', description: 'We focus on building AI tools that solve real-world business problems and deliver measurable results.' },
@@ -139,7 +139,7 @@ export const portfolioItems: PortfolioItem[] = [
     { 
         id: 'saas-dashboard',
         title: 'SaaS Dashboard', 
-        category: 'Vibe Coding Apps', 
+        category: 'Vibe Coded Apps', 
         image: '/images/portfolio/saas-dashboard/thumbnail.jpg',
         heroImage: '/images/portfolio/saas-dashboard/hero.jpg',
         challenge: "A B2B SaaS startup had a powerful backend but their user dashboard was cluttered, unintuitive, and visually dated. This was leading to poor user adoption and high churn rates.",
@@ -170,7 +170,7 @@ export const portfolioItems: PortfolioItem[] = [
     { 
         id: 'mobile-web-app',
         title: 'Mobile Web App', 
-        category: 'Vibe Coding Apps', 
+        category: 'Vibe Coded Apps', 
         image: '/images/portfolio/mobile-web-app/thumbnail.jpg',
         heroImage: '/images/portfolio/mobile-web-app/hero.jpg',
         challenge: "A lifestyle brand wanted to create a mobile app for their community, but lacked the budget and timeline for native iOS and Android development. They needed a solution that was fast to build and accessible on all devices.",
@@ -264,7 +264,7 @@ export const portfolioItems: PortfolioItem[] = [
 
 export const testimonials = [
     { name: 'Sarah L.', role: ' Innovate Co.', message: 'ProbSolv transformed our online presence. Their attention to detail and modern design sense is unparalleled. Our new website is fast, beautiful, and generating more leads than ever.', stars: 5 },
-    { name: 'Michael B.', role: ' Founder, TechStream', message: 'The AI chatbot they built for us has cut down our support tickets by 40%. It\'s incredibly smart and has freed up our team to focus on bigger issues. A total game-changer.', stars: 5 },
+    { name: 'Michael B.', role: ' Founder, TechStream', message: 'The AI call agent they built for us has cut down our support tickets by 40%. It\'s incredibly smart and has freed up our team to focus on bigger issues. A total game-changer.', stars: 5 },
     { name: 'Jessica T.', role: '  Aura Studios', message: 'I\'ve never worked with a team that understood our "vibe" so deeply. The app they delivered is not just functional, it\'s a work of art that our users absolutely love.', stars: 5 },
     { name: 'David R.', role: '  DataFlow', message: 'Professional, efficient, and highly skilled. The ProbSolv team delivered our project on time and exceeded all our expectations. We will definitely be working with them again.', stars: 5 },
 ];
@@ -275,7 +275,7 @@ export const blogPosts: Post[] = [
         title: 'Beyond the Pixels: Why "Vibe" is the Most Underrated Metric in App Development',
         author: 'Alex Chen',
         date: 'October 26, 2025',
-        category: 'Vibe Coding Apps',
+        category: 'Vibe Coded Apps',
         image: '/images/blog/why-vibe-matters.jpg',
         excerpt: 'In a saturated app market, functionality is just the ticket to entry. The real differentiator? Vibe. We explore how aesthetic-driven design and micro-interactions create memorable experiences that build lasting brand loyalty.',
         content: `
@@ -357,11 +357,11 @@ export const jobOpenings: Job[] = [
         ]
     },
     {
-        id: 'ai-engineer',
-        title: 'AI/ML Engineer',
+        id: 'ai-Novice',
+        title: 'AI/ML Novice',
         location: 'Remote',
         type: 'time-varies',
-        description: 'Join our AI team to build intelligent automation solutions that solve real-world business problems. You will design, develop, and deploy machine learning models and AI-powered systems for our diverse range of clients.',
+        description: 'Join our AI team to build intelligent automation solutions that solve real-world business problems. You will perform baic work in design, develop, and deploy machine learning models and AI-powered systems for our diverse range of clients.',
         responsibilities: [
             'Design and implement machine learning models for tasks like NLP, computer vision, and predictive analytics.',
             'Develop and integrate custom AI solutions, including chatbots and internal assistants.',
@@ -371,7 +371,7 @@ export const jobOpenings: Job[] = [
         ],
         qualifications: [
             'Understanding of AI automation,chatbots,training ai . ',
-            'Proficiency in Python and machine learning frameworks (e.g., TensorFlow, PyTorch (optional).',
+            'Basic Proficiency in Python and machine learning frameworks (e.g., TensorFlow, PyTorch (optional).',
             'Experience with cloud platforms (GCP, AWS, Azure).',
             'Basic understanding of algorithms, data structures, and statistical modeling.',
             'Ability to communicate complex technical concepts to non-technical stakeholders.'
@@ -419,9 +419,9 @@ export const pricingTiers: PricingTier[] = [
   },
   {
     name: 'Growth',
-    price: '$170',
-    originalPrice: '$999',
-    discount: '83% OFF (29 spots remaining)',
+    price: '$175',
+    originalPrice: '$700',
+    discount: '75% OFF (29 spots remaining)',
     description: 'Ideal for growing businesses ready to scale with a multi-page, feature-rich system.',
     features: [
       'Up to 10 Custom Pages',
