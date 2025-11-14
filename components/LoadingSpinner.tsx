@@ -16,7 +16,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ isLoading }) => {
       setIsComplete(false);
       
       const startTime = Date.now();
-      const duration = 180; // Animate progress over 180ms
+      const duration = 150; // Animate progress over 150ms
 
       const updateProgress = () => {
         const elapsedTime = Date.now() - startTime;
