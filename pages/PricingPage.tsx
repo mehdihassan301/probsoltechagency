@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Page } from '../types';
 import { pricingTiers, serviceDetails } from '../components/constants';
 import AnimatedCardBackground from '../components/AnimatedCardBackground';
-import { SpinnerIcon } from '../components/Icons';
+import { SpinnerIcon, ZapIcon, BrainIcon, ShieldCheckIcon, ArrowDownIcon } from '../components/Icons';
 
 interface PricingPageProps {
   setPage: (page: Page, id?: string) => void;
@@ -228,6 +229,8 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
   const [visibleTiers, setVisibleTiers] = useState<Set<number>>(new Set());
   const titleRef = useRef<HTMLDivElement>(null);
   const [titleVisible, setTitleVisible] = useState(false);
+  const noBrainerRef = useRef<HTMLDivElement>(null);
+  const [noBrainerVisible, setNoBrainerVisible] = useState(false);
 
   const [isCustomFormVisible, setIsCustomFormVisible] = useState(false);
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
@@ -268,6 +271,15 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
       titleObserver.observe(titleRef.current);
     }
 
+    const noBrainerObserver = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+            setNoBrainerVisible(true);
+            noBrainerObserver.unobserve(entry.target);
+        }
+    }, { threshold: 0.1 });
+    
+    if (noBrainerRef.current) noBrainerObserver.observe(noBrainerRef.current);
+
     const tierObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -284,6 +296,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
 
     return () => {
       if (titleRef.current) titleObserver.unobserve(titleRef.current);
+      if (noBrainerRef.current) noBrainerObserver.unobserve(noBrainerRef.current);
       tierRefs.current.forEach(ref => {
         if (ref) tierObserver.unobserve(ref);
       });
@@ -346,7 +359,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
 
   return (
     <div className="pt-24 sm:pt-32 pb-16 sm:pb-20 container mx-auto px-4 sm:px-6 lg:px-8">
-      <div ref={titleRef} className={`text-center max-w-2xl mx-auto mb-16 ${titleVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+      <div ref={titleRef} className={`text-center max-w-2xl mx-auto mb-12 ${titleVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
         <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-text_light dark:text-text_dark">Flexible Pricing Plans</h1>
         <p className="mt-4 text-base md:text-lg text-subtext_light dark:text-subtext_dark">
           Choose a plan that scales with your business needs. Transparent pricing for exceptional value.
@@ -367,6 +380,59 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
             />
         </button>
         <span className={`text-sm font-semibold transition-colors ${currency === 'PKR' ? 'text-text_light dark:text-text_dark' : 'text-subtext_light dark:text-subtext_dark'}`}>PKR</span>
+      </div>
+
+      {/* No Brainer Section */}
+      <div ref={noBrainerRef} className={`max-w-6xl mx-auto mb-16 px-4 ${noBrainerVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-surface_light to-bg_light dark:from-surface_dark dark:to-bg_dark border border-primary/30 p-8 md:p-10 shadow-xl">
+            <AnimatedCardBackground />
+            <div className="relative z-10 text-center">
+                <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-xs uppercase tracking-wider">
+                    The Smart Choice
+                </div>
+                <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-text_light dark:text-text_dark mb-2">
+                    The "No-Brainer" Investment
+                </h2>
+                <p className="text-lg text-subtext_light dark:text-subtext_dark max-w-2xl mx-auto mb-10">
+                    Stop guessing. Start growing. Here is why smart founders choose ProbSolv over DIY.
+                </p>
+                
+                <div className="grid md:grid-cols-3 gap-8 mb-10 text-left">
+                    <div className="bg-surface_light/80 dark:bg-surface_dark/80 p-6 rounded-xl border border-border_light dark:border-border_dark hover:border-primary/50 transition-colors">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-4">
+                            <ZapIcon className="w-7 h-7" />
+                        </div>
+                        <h3 className="font-bold text-xl text-text_light dark:text-text_dark mb-2">Stop the Time Drain</h3>
+                        <p className="text-sm text-subtext_light dark:text-subtext_dark">
+                            Every hour you spend fighting with templates is an hour not selling. We handle the tech so you can get back to being the CEO.
+                        </p>
+                    </div>
+                    <div className="bg-surface_light/80 dark:bg-surface_dark/80 p-6 rounded-xl border border-border_light dark:border-border_dark hover:border-primary/50 transition-colors">
+                        <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-4">
+                            <ShieldCheckIcon className="w-7 h-7" />
+                        </div>
+                        <h3 className="font-bold text-xl text-text_light dark:text-text_dark mb-2">Instant Authority</h3>
+                        <p className="text-sm text-subtext_light dark:text-subtext_dark">
+                            First impressions are everything. A "vibe-coded" site instantly positions you as a premium leader, building trust before you even speak.
+                        </p>
+                    </div>
+                    <div className="bg-surface_light/80 dark:bg-surface_dark/80 p-6 rounded-xl border border-border_light dark:border-border_dark hover:border-primary/50 transition-colors">
+                         <div className="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-500 mb-4">
+                            <BrainIcon className="w-7 h-7" />
+                        </div>
+                        <h3 className="font-bold text-xl text-text_light dark:text-text_dark mb-2">The AI Multiplier</h3>
+                        <p className="text-sm text-subtext_light dark:text-subtext_dark">
+                            Why hire more staff? Our AI automations handle support and leads 24/7. It's not an expense; it's an employee that never sleeps.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col items-center justify-center animate-bounce">
+                    <p className="text-sm font-bold uppercase tracking-widest text-primary dark:text-accent mb-2">Choose Your Growth Engine Below</p>
+                    <ArrowDownIcon className="w-6 h-6 text-primary dark:text-accent" />
+                </div>
+            </div>
+        </div>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -430,6 +496,19 @@ const PricingPage: React.FC<PricingPageProps> = ({ setPage }) => {
                     </li>
                   ))}
                 </ul>
+                
+                <div className="mt-4">
+                    <button 
+                        onClick={() => setPage('Contact')}
+                        className="flex items-center gap-2 text-xs font-medium text-subtext_light dark:text-subtext_dark hover:text-primary dark:hover:text-accent transition-colors group/info"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 opacity-70 group-hover/info:opacity-100">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                        </svg>
+                        Contact us for detailed deliverables
+                    </button>
+                </div>
+
                 <div className="border-t border-border_light dark:border-border_dark my-6"></div>
                 <p className="text-sm text-subtext_light dark:text-subtext_dark mb-6">Delivery: <span className="font-semibold text-text_light dark:text-text_dark">{tier.delivery}</span></p>
                 <button
