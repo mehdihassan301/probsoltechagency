@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Page, Theme } from './types';
 import { Header } from './components/Header';
@@ -7,7 +8,7 @@ import ServicesPage from './pages/ServicesPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import PricingPage from './pages/PricingPage';
 import PortfolioPage from './pages/PortfolioPage';
-import AboutPage from './components/AboutPage';
+import AboutPage from './pages/AboutPage';
 import TestimonialsPage from './pages/TestimonialsPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
@@ -21,6 +22,7 @@ import BackToTopButton from './components/BackToTopButton';
 import { serviceDetails, blogPosts, portfolioItems } from './components/constants';
 import CaseStudyPage from './pages/CaseStudyPage';
 import ProjectBriefPage from './pages/ProjectBriefPage';
+import VisibilityPage from './pages/VisibilityPage';
 import LoadingSpinner from './components/LoadingSpinner';
 
 const App: React.FC = () => {
@@ -46,6 +48,60 @@ const App: React.FC = () => {
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  // Dynamic Title Update for SEO/UX
+  useEffect(() => {
+    let title = 'ProbSolv Tech Agency | AI Automation & Web Design';
+    switch (page) {
+        case 'Home':
+            title = 'ProbSolv Tech Agency | AI Automation, Vibe Coding & Web Design';
+            break;
+        case 'Services':
+            title = 'Our Services | ProbSolv Tech Agency';
+            break;
+        case 'Pricing':
+            title = 'Pricing & Plans | ProbSolv Tech Agency';
+            break;
+        case 'Portfolio':
+            title = 'Our Portfolio | ProbSolv Tech Agency';
+            break;
+        case 'About':
+            title = 'About Us | ProbSolv Tech Agency';
+            break;
+        case 'Blog':
+            title = 'Insights & Blog | ProbSolv Tech Agency';
+            break;
+        case 'Contact':
+            title = 'Contact Us | ProbSolv Tech Agency';
+            break;
+        case 'Careers':
+            title = 'Careers | ProbSolv Tech Agency';
+            break;
+        case 'ServiceDetail':
+             const service = serviceDetails.find(s => s.id === activeService);
+             if (service) title = `${service.title} | ProbSolv Tech Agency`;
+             break;
+        case 'BlogPost':
+             const post = blogPosts.find(p => p.id === activePost);
+             if (post) title = `${post.title} | ProbSolv Tech Agency`;
+             break;
+        case 'CaseStudy':
+             const item = portfolioItems.find(p => p.id === activePortfolioItem);
+             if (item) title = `${item.title} - Case Study | ProbSolv Tech Agency`;
+             break;
+        case 'Visibility':
+            title = 'Get Visibility Now - Free Services | ProbSolv Tech Agency';
+            break;
+        case 'PrivacyPolicy':
+            title = 'Privacy Policy | ProbSolv Tech Agency';
+            break;
+        case 'TermsOfService':
+            title = 'Terms of Service | ProbSolv Tech Agency';
+            break;
+    }
+    document.title = title;
+  }, [page, activeService, activePost, activePortfolioItem]);
+
 
   const navigateTo = (targetPage: Page, id?: string) => {
     // Prevent navigation if already transitioning or navigating to the same page without a new ID
@@ -111,6 +167,8 @@ const App: React.FC = () => {
         return item ? <CaseStudyPage item={item} setPage={navigateTo} /> : <PortfolioPage setPage={navigateTo} />;
       case 'ProjectBrief':
         return activePlan ? <ProjectBriefPage planName={activePlan} setPage={navigateTo} /> : <PricingPage setPage={navigateTo} />;
+      case 'Visibility':
+        return <VisibilityPage setPage={navigateTo} />;
       case 'PrivacyPolicy':
         return <PrivacyPolicyPage />;
       case 'TermsOfService':
