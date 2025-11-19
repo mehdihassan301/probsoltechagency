@@ -1,7 +1,8 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Page } from '../types';
 import { serviceDetails } from '../components/constants';
-import { ChevronDownIcon, SpinnerIcon } from '../components/Icons';
+import { ChevronDownIcon, SpinnerIcon, SparklesIcon } from '../components/Icons';
 import AnimatedCardBackground from '../components/AnimatedCardBackground';
 
 interface ServicesPageProps {
@@ -363,6 +364,34 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ setPage }) => {
           We provide cutting-edge digital solutions to elevate your business.
         </p>
       </div>
+      
+      {/* Promotional Campaign Card */}
+      <div className="max-w-4xl mx-auto mb-16 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/50 dark:border-primary/40 p-8 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary dark:text-accent font-bold text-xs uppercase tracking-wider mb-4">
+                    <SparklesIcon className="w-4 h-4" />
+                    <span>Limited Time Offer</span>
+                </div>
+                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text_light dark:text-text_dark mb-3">
+                    Current Campaign: Get Visibility Now
+                </h2>
+                <p className="text-subtext_light dark:text-subtext_dark mb-8 max-w-2xl mx-auto text-sm sm:text-base">
+                    We are actively building our public portfolio and reviews. For a limited time, we are waiving <strong>100% of our development fees</strong> for the first 50 partners. Get premium Web Design, AI Chatbots, or Vibe Coded Apps for free in exchange for your honest feedback.
+                </p>
+                <button
+                    onClick={() => setPage('Visibility')}
+                    className="px-8 py-3.5 bg-primary text-white font-bold rounded-lg hover:bg-purple-600 transition-all transform hover:scale-105 shadow-lg shadow-primary/30 text-sm sm:text-base"
+                >
+                    View Campaign Offer
+                </button>
+            </div>
+            {/* Decorative glow */}
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/20 blur-3xl rounded-full"></div>
+            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/20 blur-3xl rounded-full"></div>
+          </div>
+      </div>
+
       <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
         {serviceDetails.map((service, index) => (
           <div 
